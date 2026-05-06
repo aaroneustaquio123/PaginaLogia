@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Arco de Escocia — Distrito Perú</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ─── REAL ARCO SUPPLEMENTAL STYLES ─── */
+
+    /* Royal Arch triple-tau SVG logo colors */
+    .ra-gold { fill: var(--gold); }
+    .ra-cream { fill: var(--cream); }
+    .ra-accent { fill: var(--accent); }
+    .ra-navy { fill: var(--navy-panel); }
+
+    /* ─── HERO BADGE IMAGE ─── */
+    .hero-badge-wrap {
+      position: relative;
+      width: 160px; height: 160px;
+      margin: 0 auto 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-badge-wrap::before,
+    .hero-badge-wrap::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.25);
+      animation: pulse-ring 4s ease-in-out infinite;
+    }
+    .hero-badge-wrap::before { inset: -10px; animation-delay: 0.7s; }
+    .hero-badge-wrap::after  { inset: -22px; border-color: rgba(74,144,200,0.15); animation-delay: 1.4s; }
+
+    .hero-badge-img {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      border: 2.5px solid var(--gold);
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      background: var(--navy-card);
+    }
+
+    /* placeholder shown when no image is set */
+    .hero-badge-placeholder {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      border: 2.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--navy-card);
+      overflow: hidden;
+    }
+
+    /* ─── TRIPLE TAU SYMBOL ─── */
+    .tau-symbol {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── DEGREES SECTION ─── */
+    .degrees { background: var(--navy); }
+
+    .degrees-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .degree-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .degree-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .degree-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .degree-card:hover::before { transform: scaleX(1); }
+
+    .degree-roman {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .degree-svg { margin: 0 auto 1.2rem; display: block; }
+
+    .degree-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+      line-height: 1.35;
+    }
+
+    .degree-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── CAPITULOS ─── */
+    .capitulos { background: var(--navy-mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .capitulos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .capitulo-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .capitulo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .capitulo-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .capitulo-card:hover::before { transform: scaleX(1); }
+
+    .capitulo-num {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .capitulo-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .capitulo-ciudad {
+      font-size: 13px;
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    .capitulo-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ─── HISTORIA TIMELINE ─── */
+    .historia { background: var(--navy); }
+
+    .timeline {
+      position: relative;
+      margin-top: 3.5rem;
+      padding-left: 2.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, var(--gold), var(--accent), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      padding-left: 2rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 0.35rem;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--navy);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+    }
+
+    .timeline-year {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+      line-height: 1;
+    }
+
+    .timeline-item h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .timeline-item p { font-size: 14px; color: var(--text-muted); line-height: 1.7; max-width: 680px; }
+
+    /* ─── SYMBOLISM ─── */
+    .symbolism {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .symbols-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .symbol-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      transition: border-color 0.3s;
+    }
+
+    .symbol-card:hover { border-color: var(--gold); }
+    .symbol-card svg { display: block; margin: 0 auto 1.2rem; }
+
+    .symbol-card h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .symbol-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+    /* ─── RESPONSIVE EXTRAS ─── */
+    @media (max-width: 768px) {
+      .degrees-grid { grid-template-columns: 1fr 1fr; }
+      .capitulos-grid { grid-template-columns: 1fr; }
+      .symbols-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .degrees-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     NAV
+══════════════════════════════════════════ -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-emblem">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 8L36 24L24 40L12 24L24 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M24 12L32 24L24 36L16 24L24 12Z" stroke="currentColor" stroke-width="2.5"/>
+        <circle cx="24" cy="24" r="4" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="nav-title">Gran Logia<br><span>Nacional</span></div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+    <li><a href="RealArco.html">Real Arco</a></li>
+    <li><a href="Marinero.html">Marineros del Arca Real</a></li>
+    <li><a href="#logias.html">Consejo de Masones Críticos</a></li>
+    <li><a href="#logias.html">Preceptoria</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-stars" id="stars"></div>
+
+  <!-- ★ COLOCA AQUÍ TU IMAGEN — reemplaza src="" con la ruta de tu escudo ★ -->
+  <div class="hero-badge-wrap reveal">
+    <img
+      src="Imagenes/LogoRealAarco.png"
+      alt="Escudo Real Arco de Escocia Distrito Perú"
+      class="hero-badge-img"
+      id="escudo-img"
+      onerror="this.style.display='none';document.getElementById('escudo-placeholder').style.display='flex';"
+    />
+    <!-- Placeholder SVG mostrado si no hay imagen -->
+    <div class="hero-badge-placeholder" id="escudo-placeholder" style="display:none;">
+      <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Keystone shape -->
+        <polygon points="45,8 78,22 78,68 45,82 12,68 12,22" stroke="#C9A84C" stroke-width="2" fill="rgba(21,34,68,0.8)"/>
+        <!-- Triple Tau -->
+        <rect x="42" y="20" width="6" height="20" fill="#C9A84C"/>
+        <rect x="34" y="20" width="22" height="5" fill="#C9A84C"/>
+        <rect x="26" y="42" width="5" height="16" fill="#C9A84C"/>
+        <rect x="22" y="42" width="13" height="4.5" fill="#C9A84C"/>
+        <rect x="59" y="42" width="5" height="16" fill="#C9A84C"/>
+        <rect x="55" y="42" width="13" height="4.5" fill="#C9A84C"/>
+        <text x="45" y="74" text-anchor="middle" font-family="serif" font-size="8" fill="#C9A84C" letter-spacing="1">PERÚ</text>
+      </svg>
+    </div>
+  </div>
+
+  <span class="hero-subtitle reveal">Gran Capítulo del Perú · Fundado 1870</span>
+
+  <h1 class="reveal">Real Arco de <span>Escocia</span></h1>
+
+  <p class="hero-tagline reveal">
+    «La Perfección del Arco Real — Cúspide de la Masonería Escocesa en el Perú»
+  </p>
+
+  <div class="hero-divider"></div>
+
+  <div class="hero-cta reveal">
+    <a href="#capitulos" class="btn-primary">Nuestros Capítulos</a>
+    <a href="#contacto" class="btn-outline">Petición de Afiliación</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STATS BAR
+══════════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-num">1870</div>
+      <div class="stat-label">Año de Fundación</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">4°</div>
+      <div class="stat-label">Grados del Arco Real</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">12+</div>
+      <div class="stat-label">Capítulos Activos</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">154</div>
+      <div class="stat-label">Años de Tradición</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ABOUT / QUÉ ES EL REAL ARCO
+══════════════════════════════════════════ -->
+<section class="about" id="sobre">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="section-label">¿Qué es el Real Arco?</span>
+        <h2 class="section-title">La Cúspide de la<br>Masonería Antigua</h2>
+        <div class="gold-line"></div>
+        <p>
+          El <strong style="color:var(--cream)">Real Arco de Escocia</strong> constituye el grado cumbre del sistema masónico escocés. Conocido también como el <em>Supremo Grado</em>, revela la palabra perdida y completa los misterios de los tres grados simbólicos, integrando la enseñanza del Maestre Masón en su plenitud filosófica y espiritual.
+        </p>
+        <p>
+          En el Perú, el <strong style="color:var(--cream)">Gran Capítulo del Real Arco de Escocia</strong> es la autoridad suprema reguladora de los Capítulos del Arco Real constituidos bajo su obediencia, velando por la pureza del ritual, la regularidad de los trabajos y la formación de sus Compañeros.
+        </p>
+        <p>
+          Nuestro Distrito se rige por la Constitución y las Regulaciones Generales del <em>Supreme Grand Royal Arch Chapter of Scotland</em>, con sede en Edimburgo, manteniendo una ininterrumpida fraternidad con los Capítulos de Escocia desde 1870.
+        </p>
+      </div>
+      <div class="about-pillars reveal">
+        <div class="pillar">
+          <!-- SVG Keystone -->
+          <svg class="pillar-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="22,3 40,11 40,33 22,41 4,33 4,11" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+            <polygon points="22,9 35,15 35,29 22,35 9,29 9,15" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.06)"/>
+            <text x="22" y="26" text-anchor="middle" font-family="serif" font-size="12" fill="#C9A84C">τ</text>
+          </svg>
+          <h4>Palabra Perdida</h4>
+          <p>El Arco Real revela lo que la tradición masónica llama la Palabra Sagrada, centro de su misterio.</p>
+        </div>
+        <div class="pillar">
+          <!-- SVG Triple Tau -->
+          <svg class="pillar-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="5" width="4" height="18" fill="#C9A84C"/>
+            <rect x="13" y="5" width="18" height="4" fill="#C9A84C"/>
+            <rect x="6" y="24" width="4" height="15" fill="#C9A84C"/>
+            <rect x="3" y="24" width="10" height="3.5" fill="#C9A84C"/>
+            <rect x="34" y="24" width="4" height="15" fill="#C9A84C"/>
+            <rect x="31" y="24" width="10" height="3.5" fill="#C9A84C"/>
+          </svg>
+          <h4>Triple Tau</h4>
+          <p>El símbolo más sagrado del Arco Real, cuyo significado encierra la esencia de los tres pilares universales.</p>
+        </div>
+        <div class="pillar">
+          <!-- SVG Arch -->
+          <svg class="pillar-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 38 L8 20 Q8 6 22 6 Q36 6 36 20 L36 38" stroke="#C9A84C" stroke-width="2" fill="none"/>
+            <path d="M14 38 L14 22 Q14 12 22 12 Q30 12 30 22 L30 38" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,0.06)"/>
+          </svg>
+          <h4>El Arco Sagrado</h4>
+          <p>Símbolo del arco del templo de Salomón, umbral del conocimiento más elevado de la tradición escocesa.</p>
+        </div>
+        <div class="pillar">
+          <!-- SVG All-seeing eye -->
+          <svg class="pillar-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 22 Q22 6 40 22 Q22 38 4 22Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+            <circle cx="22" cy="22" r="5" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.12)"/>
+            <circle cx="22" cy="22" r="2" fill="#C9A84C"/>
+          </svg>
+          <h4>La Gran Luz</h4>
+          <p>El Ojo que Todo lo Ve representa la omnisciencia divina que ilumina el camino del Compañero del Arco Real.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GRADOS DEL ARCO REAL
+══════════════════════════════════════════ -->
+<section class="degrees" id="grados">
+  <div class="section-inner">
+    <span class="section-label">Sistema Capitular Escocés</span>
+    <h2 class="section-title reveal">Los Cuatro Grados del<br>Arco Real de Escocia</h2>
+    <div class="gold-line"></div>
+    <p class="reveal" style="color:var(--text-muted);max-width:680px;margin-bottom:0;">
+      A diferencia de otros ritos, el sistema escocés confiere cuatro grados dentro del Capítulo del Arco Real, cada uno enriqueciendo la comprensión simbólica y filosófica del candidato.
+    </p>
+
+    <div class="degrees-grid">
+
+      <!-- Grado 4 -->
+      <div class="degree-card reveal">
+        <div class="degree-roman">Grado IV</div>
+        <svg class="degree-svg" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="28" cy="28" r="26" stroke="#C9A84C" stroke-width="1.2" fill="rgba(21,34,68,0.5)"/>
+          <!-- Mark Master symbol: square & compass simplified -->
+          <path d="M18 38 L28 16 L38 38" stroke="#C9A84C" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M20 32 L36 32" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="28" cy="28" r="4" stroke="#4A90C8" stroke-width="1.2" fill="none"/>
+        </svg>
+        <h3>Maestro de Marca</h3>
+        <p>El candidato recibe su marca personal; aprende el valor del trabajo bien hecho y la honradez del artesano del Templo.</p>
+      </div>
+
+      <!-- Grado 5 -->
+      <div class="degree-card reveal">
+        <div class="degree-roman">Grado V</div>
+        <svg class="degree-svg" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="28" cy="28" r="26" stroke="#C9A84C" stroke-width="1.2" fill="rgba(21,34,68,0.5)"/>
+          <!-- Past Master: sun/chair symbol -->
+          <circle cx="28" cy="22" r="7" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.08)"/>
+          <line x1="28" y1="12" x2="28" y2="14" stroke="#C9A84C" stroke-width="1.5"/>
+          <line x1="28" y1="30" x2="28" y2="32" stroke="#C9A84C" stroke-width="1.5"/>
+          <line x1="18" y1="22" x2="20" y2="22" stroke="#C9A84C" stroke-width="1.5"/>
+          <line x1="36" y1="22" x2="38" y2="22" stroke="#C9A84C" stroke-width="1.5"/>
+          <rect x="22" y="34" width="12" height="3" rx="1" fill="#C9A84C"/>
+          <rect x="24" y="37" width="8" height="5" rx="1" stroke="#C9A84C" stroke-width="1" fill="none"/>
+        </svg>
+        <h3>Maestro Pasado Virtual</h3>
+        <p>Grado de tránsito que confiere la dignidad del gobierno del Capítulo, preparando al Compañero para las revelaciones superiores.</p>
+      </div>
+
+      <!-- Grado 6 -->
+      <div class="degree-card reveal">
+        <div class="degree-roman">Grado VI</div>
+        <svg class="degree-svg" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="28" cy="28" r="26" stroke="#C9A84C" stroke-width="1.2" fill="rgba(21,34,68,0.5)"/>
+          <!-- Most Excellent Master: completed arch -->
+          <path d="M14 38 L14 26 Q14 12 28 12 Q42 12 42 26 L42 38" stroke="#C9A84C" stroke-width="1.8" fill="none"/>
+          <path d="M20 38 L20 28 Q20 18 28 18 Q36 18 36 28 L36 38" stroke="#4A90C8" stroke-width="1" fill="none"/>
+          <circle cx="28" cy="38" r="2.5" fill="#C9A84C"/>
+        </svg>
+        <h3>Excelentísimo Maestro</h3>
+        <p>Celebra la conclusión del Templo de Salomón y la colocación de la clave de bóveda; umbral directo del Arco Real.</p>
+      </div>
+
+      <!-- Grado 7 - Royal Arch -->
+      <div class="degree-card reveal" style="border-color:rgba(201,168,76,0.35);">
+        <div class="degree-roman" style="color:var(--gold);">Grado VII</div>
+        <svg class="degree-svg" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="28" cy="28" r="26" stroke="#C9A84C" stroke-width="1.8" fill="rgba(21,34,68,0.5)"/>
+          <!-- Triple Tau central -->
+          <rect x="26" y="10" width="4" height="14" fill="#C9A84C"/>
+          <rect x="20" y="10" width="16" height="3.5" fill="#C9A84C"/>
+          <rect x="12" y="28" width="3.5" height="12" fill="#C9A84C"/>
+          <rect x="9" y="28" width="10" height="3" fill="#C9A84C"/>
+          <rect x="40.5" y="28" width="3.5" height="12" fill="#C9A84C"/>
+          <rect x="37" y="28" width="10" height="3" fill="#C9A84C"/>
+          <!-- Star rays -->
+          <circle cx="28" cy="44" r="2" fill="#C9A84C" opacity="0.5"/>
+        </svg>
+        <h3>Real Arco de Escocia</h3>
+        <p>El grado supremo. La Palabra Perdida es restaurada. La revelación del nombre sagrado completa el viaje del Masón.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     HISTORIA
+══════════════════════════════════════════ -->
+<section class="historia" id="historia">
+  <div class="section-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;" class="about-grid">
+      <div>
+        <span class="section-label">Historia</span>
+        <h2 class="section-title reveal">El Real Arco en el Perú</h2>
+        <div class="gold-line"></div>
+        <div class="timeline reveal">
+
+          <div class="timeline-item">
+            <div class="timeline-year">1870</div>
+            <h4>Fundación del Gran Capítulo</h4>
+            <p>Se constituye formalmente el Gran Capítulo del Real Arco de Escocia en el Perú bajo patente otorgada por el Supreme Grand Royal Arch Chapter of Scotland en Edimburgo.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">1890</div>
+            <h4>Consolidación en Lima</h4>
+            <p>Los primeros Capítulos en la capital alcanzan regularidad constitucional y establecen los rituales en lengua castellana, adaptando la liturgia escocesa a la fraternidad peruana.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">1920</div>
+            <h4>Expansión Nacional</h4>
+            <p>El Gran Capítulo autoriza la apertura de Capítulos en el interior del país, llevando el mensaje del Arco Real a Arequipa, Trujillo y el Callao.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">1970</div>
+            <h4>Centenario</h4>
+            <p>Celebración del primer centenario con la participación de delegaciones de Escocia, reafirmando los vínculos rituales y fraternales con la Gran Logia Madre.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2024</div>
+            <h4>Presencia Digital y Renovación</h4>
+            <p>El Gran Capítulo inicia su transformación digital manteniendo la solidez ritual y filosófica heredada de más de 150 años de historia ininterrumpida en el Perú.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="reveal" style="padding-top:4rem;">
+        <div class="pillar" style="margin-bottom:1.5rem;text-align:left;padding:2rem;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin-bottom:0.75rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+            <rect x="14" y="2" width="4" height="14" fill="#C9A84C"/>
+            <rect x="8" y="2" width="16" height="4" fill="#C9A84C"/>
+            <rect x="3" y="18" width="3.5" height="11" fill="#C9A84C"/>
+            <rect x="1" y="18" width="9" height="3" fill="#C9A84C"/>
+            <rect x="25.5" y="18" width="3.5" height="11" fill="#C9A84C"/>
+            <rect x="22" y="18" width="9" height="3" fill="#C9A84C"/>
+          </svg>
+          <h4 style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.1em;color:var(--cream);margin-bottom:0.5rem;">SUPREME GRAND ROYAL ARCH<br>CHAPTER OF SCOTLAND</h4>
+          <p style="font-size:13px;color:var(--text-muted);">Autoridad reguladora suprema con sede en Freemasons' Hall, Edimburgo. El Gran Capítulo del Perú opera bajo su patente y en comunión fraternal permanente.</p>
+        </div>
+
+        <div class="pillar" style="text-align:left;padding:2rem;">
+          <!-- Saltire (Cross of St Andrew) SVG -->
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin-bottom:0.75rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+            <rect x="14" y="0" width="4" height="32" rx="2" fill="#C9A84C" transform="rotate(45 16 16)"/>
+            <rect x="14" y="0" width="4" height="32" rx="2" fill="#C9A84C" transform="rotate(-45 16 16)"/>
+          </svg>
+          <h4 style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.1em;color:var(--cream);margin-bottom:0.5rem;">LA CRUZ DE SAN ANDRÉS</h4>
+          <p style="font-size:13px;color:var(--text-muted);">El aspa de San Andrés, patrón de Escocia, preside nuestra tradición y recuerda la misión de llevar la luz masónica a todos los rincones del Perú.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CAPÍTULOS DEL PERÚ
+══════════════════════════════════════════ -->
+<section class="capitulos" id="capitulos">
+  <div class="section-inner">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:1rem;">
+      <div>
+        <span class="section-label">Obediencia del Perú</span>
+        <h2 class="section-title reveal">Capítulos Constituidos</h2>
+        <div class="gold-line"></div>
+      </div>
+      <a href="#contacto" class="btn-outline reveal">Petición de Constitución</a>
+    </div>
+
+    <div class="capitulos-grid">
+
+      <div class="capitulo-card reveal">
+        <div class="capitulo-num">Capítulo N.° 1</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.5" fill="rgba(21,34,68,0.7)"/>
+          <rect x="24" y="10" width="4" height="13" fill="#C9A84C"/>
+          <rect x="18" y="10" width="16" height="3.5" fill="#C9A84C"/>
+          <rect x="10" y="26" width="3.5" height="12" fill="#C9A84C"/>
+          <rect x="7" y="26" width="10" height="3" fill="#C9A84C"/>
+          <rect x="38.5" y="26" width="3.5" height="12" fill="#C9A84C"/>
+          <rect x="35" y="26" width="10" height="3" fill="#C9A84C"/>
+        </svg>
+        <h3>Capítulo Stella Matutina</h3>
+        <div class="capitulo-ciudad">Lima — Sede Central</div>
+        <p>Capítulo fundador y sede del Gran Capítulo del Perú. Trabaja en el Rito Escocés Rectificado del Arco Real bajo los cuatro grados capitulares.</p>
+      </div>
+
+      <div class="capitulo-card reveal">
+        <div class="capitulo-num">Capítulo N.° 2</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="26,4 48,16 48,36 26,48 4,36 4,16" stroke="#C9A84C" stroke-width="1.5" fill="rgba(21,34,68,0.7)"/>
+          <path d="M12 38 L12 24 Q12 12 26 12 Q40 12 40 24 L40 38" stroke="#C9A84C" stroke-width="1.8" fill="none"/>
+          <circle cx="26" cy="38" r="2.5" fill="#C9A84C"/>
+        </svg>
+        <h3>Capítulo San Andrés</h3>
+        <div class="capitulo-ciudad">Lima</div>
+        <p>Lleva el nombre del patrón de Escocia, custodio de la tradición del Arco Real en la capital, con especial énfasis en la instrucción ritual.</p>
+      </div>
+
+      <div class="capitulo-card reveal">
+        <div class="capitulo-num">Capítulo N.° 3</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="#4A90C8" stroke-width="1.5" fill="rgba(21,34,68,0.7)"/>
+          <path d="M10 26 Q26 8 42 26 Q26 44 10 26Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+          <circle cx="26" cy="26" r="5" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.15)"/>
+          <circle cx="26" cy="26" r="2" fill="#C9A84C"/>
+        </svg>
+        <h3>Capítulo Luz del Ande</h3>
+        <div class="capitulo-ciudad">Arequipa</div>
+        <p>Capítulo de referencia en el sur del Perú, difusor del Arco Real en la región andina, trabajando bajo la jurisdicción del Gran Capítulo desde 1920.</p>
+      </div>
+
+      <div class="capitulo-card reveal">
+        <div class="capitulo-num">Capítulo N.° 4</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="26,3 49,14.5 49,37.5 26,49 3,37.5 3,14.5" stroke="#C9A84C" stroke-width="1.5" fill="rgba(21,34,68,0.7)"/>
+          <rect x="24" y="12" width="4" height="13" fill="#C9A84C"/>
+          <rect x="18" y="12" width="16" height="3.5" fill="#C9A84C"/>
+          <path d="M26 34 L20 42 L26 40 L32 42 Z" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,0.15)"/>
+        </svg>
+        <h3>Capítulo Minerva</h3>
+        <div class="capitulo-ciudad">Trujillo</div>
+        <p>Con tradición centenaria en el norte del país, Minerva preserva la pureza del trabajo capitular y la enseñanza filosófica del Arco Real escocés.</p>
+      </div>
+
+      <div class="capitulo-card reveal">
+        <div class="capitulo-num">Capítulo N.° 5</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.5" fill="rgba(21,34,68,0.7)"/>
+          <!-- Star of 6 points simplified -->
+          <polygon points="26,10 30,20 42,20 33,28 37,40 26,33 15,40 19,28 10,20 22,20" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.08)"/>
+        </svg>
+        <h3>Capítulo Fénix del Callao</h3>
+        <div class="capitulo-ciudad">Callao</div>
+        <p>Capítulo portuario vinculado a la histórica tradición marítima y masónica de la Provincia Constitucional, sede de importantes trabajos culturales del Arco.</p>
+      </div>
+
+      <div class="capitulo-card reveal" style="border-style:dashed;opacity:0.7;">
+        <div class="capitulo-num">Constitución Futura</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="rgba(100,160,220,0.4)" stroke-width="1.5" stroke-dasharray="4 3" fill="rgba(21,34,68,0.3)"/>
+          <line x1="26" y1="14" x2="26" y2="38" stroke="rgba(74,144,200,0.5)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="14" y1="26" x2="38" y2="26" stroke="rgba(74,144,200,0.5)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h3>Nuevo Capítulo</h3>
+        <div class="capitulo-ciudad" style="color:var(--text-muted);">En Proceso</div>
+        <p>¿Desea constituir un nuevo Capítulo del Real Arco de Escocia? El Gran Capítulo del Perú evalúa peticiones de Compañeros regularmente reunidos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PRINCIPLES / VIRTUDES
+══════════════════════════════════════════ -->
+<section class="principles">
+  <div class="section-inner">
+    <span class="section-label">Filosofía del Arco Real</span>
+    <h2 class="section-title reveal">Los Pilares del Compañero</h2>
+    <div class="gold-line" style="margin:0 auto 2.5rem;"></div>
+
+    <div class="principles-quote reveal">
+      <blockquote>
+        «La perfección de toda masonería reside en el Arco Real; quien no ha pasado por su bóveda, no ha visto aún toda la luz.»
+      </blockquote>
+      <cite>— Tradición del Real Arco de Escocia</cite>
+    </div>
+
+    <div class="principles-trio reveal">
+      <div class="principle-item" data-roman="I">
+        <h3>Humildad</h3>
+        <p>El Compañero del Arco Real aprende que el conocimiento verdadero comienza con el reconocimiento de los propios límites. La humildad es la piedra angular de toda sabiduría auténtica.</p>
+      </div>
+      <div class="principle-item" data-roman="II">
+        <h3>Fidelidad</h3>
+        <p>La fidelidad al Gran Arquitecto del Universo, a los votos contraídos en el Capítulo y a los Compañeros de Jornada distingue al verdadero Masón del Arco Real.</p>
+      </div>
+      <div class="principle-item" data-roman="III">
+        <h3>Caridad</h3>
+        <p>Virtud suprema que transciende todo rito y todo grado; la caridad activa hacia el prójimo constituye la mejor evidencia de los misterios recibidos en el Arco Real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SIMBOLISMO
+══════════════════════════════════════════ -->
+<section class="symbolism" id="simbolismo">
+  <div class="section-inner">
+    <span class="section-label">Simbología Sagrada</span>
+    <h2 class="section-title reveal">Símbolos del Arco Real</h2>
+    <div class="gold-line"></div>
+
+    <div class="symbols-grid">
+
+      <div class="symbol-card reveal">
+        <!-- Triple Tau large -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="33" y="6" width="6" height="26" fill="#C9A84C"/>
+          <rect x="21" y="6" width="30" height="6" fill="#C9A84C"/>
+          <rect x="7" y="38" width="6" height="22" fill="#C9A84C"/>
+          <rect x="3" y="38" width="14" height="5.5" fill="#C9A84C"/>
+          <rect x="59" y="38" width="6" height="22" fill="#C9A84C"/>
+          <rect x="55" y="38" width="14" height="5.5" fill="#C9A84C"/>
+        </svg>
+        <h4>Triple Tau (ΤΤΤ)</h4>
+        <p>El símbolo más característico del Arco Real. Tres letras Tau entrelazadas representan el Templo de Jerusalén, el Tesoro de los Santos y el umbral de la verdad divina.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <!-- Keystone large -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="36,5 65,20 65,52 36,67 7,52 7,20" stroke="#C9A84C" stroke-width="2" fill="rgba(21,34,68,0.6)"/>
+          <polygon points="36,15 55,24 55,48 36,57 17,48 17,24" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.05)"/>
+          <text x="36" y="40" text-anchor="middle" font-family="Cinzel, serif" font-size="16" fill="#C9A84C" letter-spacing="1">τ</text>
+        </svg>
+        <h4>La Piedra Clave</h4>
+        <p>La piedra angular rechazada que llega a ser cabeza del ángulo. Símbolo del candidato que, superadas las pruebas, ocupa el lugar central en el Capítulo del Arco Real.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <!-- IHS / Tetragrammaton circle -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="36" cy="36" r="30" stroke="#C9A84C" stroke-width="1.5" fill="rgba(21,34,68,0.6)"/>
+          <circle cx="36" cy="36" r="20" stroke="#C9A84C" stroke-width="0.7" fill="none" stroke-dasharray="3 3"/>
+          <text x="36" y="31" text-anchor="middle" font-family="serif" font-size="10" fill="#C9A84C" letter-spacing="3">יהוה</text>
+          <line x1="36" y1="36" x2="36" y2="52" stroke="#C9A84C" stroke-width="1.2"/>
+          <line x1="28" y1="44" x2="44" y2="44" stroke="#C9A84C" stroke-width="1.2"/>
+        </svg>
+        <h4>El Nombre Sagrado</h4>
+        <p>En el Arco Real de Escocia se revela la Palabra Perdida: el nombre del Gran Arquitecto en su forma más completa, meta del peregrinaje masónico.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <!-- Tabernacle / Tent -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 58 L36 12 L60 58 Z" stroke="#C9A84C" stroke-width="1.8" fill="rgba(21,34,68,0.6)"/>
+          <path d="M22 58 L36 30 L50 58 Z" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.06)"/>
+          <circle cx="36" cy="24" r="5" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.1)"/>
+          <line x1="12" y1="58" x2="60" y2="58" stroke="#C9A84C" stroke-width="1.8"/>
+        </svg>
+        <h4>El Tabernáculo</h4>
+        <p>Evocación del Tabernáculo de Moisés y del primer Templo de Salomón, cuya bóveda recorre simbólicamente el candidato durante la ceremonia del Arco Real.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <!-- All Seeing Eye -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 36 Q36 8 66 36 Q36 64 6 36Z" stroke="#C9A84C" stroke-width="1.8" fill="rgba(21,34,68,0.6)"/>
+          <circle cx="36" cy="36" r="10" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.1)"/>
+          <circle cx="36" cy="36" r="4" fill="#C9A84C"/>
+          <!-- Rays -->
+          <line x1="36" y1="14" x2="36" y2="18" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
+          <line x1="52" y1="20" x2="49" y2="23" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
+          <line x1="20" y1="20" x2="23" y2="23" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
+        </svg>
+        <h4>El Ojo Omnividente</h4>
+        <p>Presente en los trabajos del Arco Real, el Ojo que Todo lo Ve recuerda que el Gran Arquitecto supervisa las obras y los corazones de sus hijos.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <!-- Scroll / Volume of Sacred Law -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="16" y="20" width="40" height="32" rx="3" stroke="#C9A84C" stroke-width="1.8" fill="rgba(21,34,68,0.6)"/>
+          <line x1="24" y1="30" x2="48" y2="30" stroke="#C9A84C" stroke-width="1.2"/>
+          <line x1="24" y1="36" x2="48" y2="36" stroke="#C9A84C" stroke-width="1.2"/>
+          <line x1="24" y1="42" x2="40" y2="42" stroke="#C9A84C" stroke-width="1.2"/>
+          <path d="M16 20 Q10 20 10 26 Q10 32 16 32" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.05)"/>
+          <path d="M56 20 Q62 20 62 26 Q62 32 56 32" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.05)"/>
+        </svg>
+        <h4>El Volumen de la Ley Sagrada</h4>
+        <p>La Gran Luz masónica preside todos los trabajos del Capítulo. Las Sagradas Escrituras son fuente de la doctrina moral y espiritual del Real Arco.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CONTACTO / PETICIÓN DE AFILIACIÓN
+══════════════════════════════════════════ -->
+<section class="logias" id="contacto">
+  <div class="section-inner">
+    <div class="logias-intro">
+      <div>
+        <span class="section-label">Petición de Afiliación</span>
+        <h2 class="section-title reveal">Únase al Real Arco</h2>
+        <div class="gold-line"></div>
+      </div>
+    </div>
+
+    <!-- Reuse modal-body form style inline -->
+    <div style="max-width:700px;margin:0 auto;" class="reveal">
+      <div class="modal-roles" style="margin-bottom:2.5rem;">
+        <div class="role-card">
+          <!-- Compass SVG -->
+          <svg class="role-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="18" r="16" stroke="#C9A84C" stroke-width="1.2" fill="none"/>
+            <line x1="18" y1="4" x2="18" y2="32" stroke="#C9A84C" stroke-width="1.5"/>
+            <polygon points="18,4 22,14 18,12 14,14" fill="#C9A84C"/>
+          </svg>
+          <h4>Compañero Masón</h4>
+          <p>Maestro Masón regular bajo obediencia reconocida puede solicitar admisión al Real Arco de Escocia previo estudio de la solicitud.</p>
+        </div>
+        <div class="role-card">
+          <!-- Key SVG -->
+          <svg class="role-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="14" cy="14" r="9" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+            <circle cx="14" cy="14" r="4" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.1)"/>
+            <line x1="21" y1="21" x2="32" y2="32" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="27" y1="29" x2="27" y2="33" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <h4>Constitución de Capítulo</h4>
+          <p>Grupos de Maestros Masones interesados en fundar un nuevo Capítulo pueden presentar petición formal ante el Gran Capítulo.</p>
+        </div>
+      </div>
+
+      <div style="background:var(--navy-card);border:1px solid var(--border);padding:2.5rem;">
+        <div class="form-title">Formulario de Petición</div>
+        <div class="form-grid" id="afiliacion-form">
+          <div class="form-group">
+            <label>Nombre Completo *</label>
+            <input type="text" placeholder="Su nombre completo" />
+          </div>
+          <div class="form-group">
+            <label>Apellidos *</label>
+            <input type="text" placeholder="Sus apellidos" />
+          </div>
+          <div class="form-group">
+            <label>Correo Electrónico *</label>
+            <input type="email" placeholder="correo@ejemplo.com" />
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="+51 999 000 000" />
+          </div>
+          <div class="form-group">
+            <label>Logia de Procedencia *</label>
+            <input type="text" placeholder="Nombre y número de su Logia Simbólica" />
+          </div>
+          <div class="form-group">
+            <label>Ciudad *</label>
+            <select>
+              <option value="">Seleccione ciudad</option>
+              <option>Lima</option>
+              <option>Arequipa</option>
+              <option>Trujillo</option>
+              <option>Callao</option>
+              <option>Cusco</option>
+              <option>Piura</option>
+              <option>Otra</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Años como Maestro Masón</label>
+            <input type="number" min="1" placeholder="Ej: 5" />
+          </div>
+          <div class="form-group full">
+            <label>Mensaje o Consulta</label>
+            <textarea placeholder="Escriba su mensaje o consulta al Gran Capítulo…"></textarea>
+          </div>
+        </div>
+        <button class="form-submit" onclick="handleSubmit()">Enviar Petición al Gran Capítulo</button>
+
+        <div class="form-success" id="form-success">
+          <svg class="success-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="22" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.1)"/>
+            <path d="M14 24 L21 31 L34 17" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <h3>Petición Recibida</h3>
+          <p>Su solicitud ha sido transmitida al Gran Secretario del Gran Capítulo del Real Arco de Escocia — Distrito Perú. Será contactado a la brevedad. <em>Fiat Lux.</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer id="contacto">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom: 1rem;">
+          <div class="nav-emblem">
+            <svg width="42" height="42" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 8L36 24L24 40L12 24L24 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M24 12L32 24L24 36L16 24L24 12Z" stroke="currentColor" stroke-width="2.5"/>
+              <circle cx="24" cy="24" r="4" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="nav-title">Gran Logia<br>Nacional</div>
+        </div>
+        <p>Custodios de la tradición, promotores del progreso y defensores de los valores que hacen grande a una nación.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Institución</h5>
+        <ul>
+          <li><a href="nosotros.html">Quiénes Somos</a></li>
+          <li><a href="#">Historia</a></li>
+          <li><a href="#">Autoridades</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Vínculos</h5>
+        <ul>
+          <li><a href="#logias">Logias</a></li>
+          <li><a href="#">Eventos</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Gran Logia Nacional del Perú · Todos los derechos reservados</p>
+      <span class="footer-masonic">A∴L∴G∴D∴G∴A∴D∴U∴</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════ -->
+<script>
+  /* ─── STARS ─── */
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      --dur: ${2.5 + Math.random() * 3}s;
+      --delay: ${Math.random() * 4}s;
+      opacity: 0.15;
+    `;
+    starsContainer.appendChild(star);
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* ─── FORM ─── */
+  function handleSubmit() {
+    const form = document.getElementById('afiliacion-form');
+    const success = document.getElementById('form-success');
+    form.style.display = 'none';
+    document.querySelector('.form-title').style.display = 'none';
+    document.querySelector('.form-submit').style.display = 'none';
+    success.classList.add('active');
+  }
+
+  /* ─── SMOOTH NAV ─── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>

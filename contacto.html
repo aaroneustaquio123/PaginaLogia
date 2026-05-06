@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gran Logia — Contacto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="styles.css" rel="stylesheet"> <!-- o contacto.css si prefieres archivo separado -->
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-emblem">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 8L36 24L24 40L12 24L24 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M24 12L32 24L24 36L16 24L24 12Z" stroke="currentColor" stroke-width="2.5"/>
+        <circle cx="24" cy="24" r="4" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="nav-title">Gran Logia<br><span>Nacional</span></div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+    <li><a href="RealArco.html">Real Arco</a></li>
+    <li><a href="Marinero.html">Marineros del Arca Real</a></li>
+    <li><a href="#logias.html">Consejo de Masones Críticos</a></li>
+    <li><a href="#logias.html">Preceptoria</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO CONTACTO -->
+<section class="hero" style="min-height: 85vh; padding-top: 100px;">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-stars" id="stars"></div>
+
+  <p class="hero-subtitle">Comunicación Fraternal</p>
+  
+  <div class="hero-emblem">
+    <svg width="110" height="110" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M24 8L36 24L24 40L12 24L24 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M24 12L32 24L24 36L16 24L24 12Z" stroke="currentColor" stroke-width="2.5"/>
+      <circle cx="24" cy="24" r="4" fill="currentColor"/>
+    </svg>
+  </div>
+
+  <h1>Contacto</h1>
+  <p class="hero-tagline">La puerta del templo está abierta para quien busca la Luz con sinceridad</p>
+  <div class="hero-divider"></div>
+</section>
+
+<!-- CONTACTO PRINCIPAL -->
+<section class="page-section" style="padding-top: 2rem;">
+  <div class="section-inner">
+    <div class="quienes-grid" style="grid-template-columns: 1fr 1fr; gap: 5rem;">
+      
+      <!-- Formulario -->
+      <div class="reveal">
+        <span class="section-label">Escríbenos</span>
+        <h2 class="section-title">Envía tu mensaje</h2>
+        <div class="gold-line"></div>
+        
+        <form id="contactForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Nombre completo</label>
+              <input type="text" placeholder="Tu nombre" required>
+            </div>
+            <div class="form-group">
+              <label>Correo electrónico</label>
+              <input type="email" placeholder="tu@email.com" required>
+            </div>
+            <div class="form-group full">
+              <label>Asunto</label>
+              <select required>
+                <option value="">Selecciona una opción</option>
+                <option value="informacion">Solicitar Información</option>
+                <option value="visita">Visita al Templo</option>
+                <option value="logia">Interesado en alguna Logia</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>Mensaje</label>
+              <textarea placeholder="Escribe tu mensaje aquí..." rows="8" required></textarea>
+            </div>
+          </div>
+          <button type="submit" class="form-submit">Enviar Mensaje</button>
+        </form>
+
+        <div class="form-success" id="successMessage">
+          <span class="success-icon">✦</span>
+          <h3>Mensaje Recibido</h3>
+          <p>Gracias por contactarnos. Un hermano se pondrá en contacto contigo lo antes posible.</p>
+        </div>
+      </div>
+
+      <!-- Información de Contacto -->
+      <div class="reveal">
+        <span class="section-label">Nuestra Sede</span>
+        <h2 class="section-title">Dónde encontrarnos</h2>
+        <div class="gold-line"></div>
+
+        <div style="background: var(--navy-card); border: 1px solid var(--border); padding: 2.5rem; margin-bottom: 2rem;">
+          <p><strong>Gran Logia Nacional del Perú</strong></p>
+          <p style="color: var(--text-muted); margin: 1.2rem 0;">
+            Av. Javier Prado Este 1234<br>
+            San Isidro, Lima — Perú
+          </p>
+          
+          <p style="margin: 1rem 0 0.5rem;">
+            <strong>Teléfono:</strong> <span style="color: var(--cream-muted);">+51 1 234 5678</span>
+          </p>
+          <p style="margin: 0.5rem 0;">
+            <strong>Email:</strong> <a href="mailto:info@granlogianacional.pe" style="color: var(--gold);">info@granlogianacional.pe</a>
+          </p>
+          <p style="margin: 0.5rem 0;">
+            <strong>Oficina:</strong> Lunes a Viernes de 9:00 a 17:00 h
+          </p>
+        </div>
+
+        <div class="identity-cards" style="gap: 1rem;">
+          <div class="identity-card">
+            <div class="identity-icon">📍</div>
+            <div>
+              <h4>Visitas</h4>
+              <p>Las visitas guiadas al templo se realizan solo con cita previa.</p>
+            </div>
+          </div>
+          <div class="identity-card">
+            <div class="identity-icon">🤝</div>
+            <div>
+              <h4>Fraternidad</h4>
+              <p>Todo contacto es tratado con la máxima discreción masónica.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-band reveal" style="background: var(--navy-mid);">
+  <div>
+    <h2>La Luz espera a quien la busca</h2>
+    <p>Si tienes dudas o deseas conocer más sobre nuestra Orden, no dudes en escribirnos.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary">Volver al Inicio</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contacto">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom: 1rem;">
+          <div class="nav-emblem">
+            <svg width="42" height="42" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 8L36 24L24 40L12 24L24 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M24 12L32 24L24 36L16 24L24 12Z" stroke="currentColor" stroke-width="2.5"/>
+              <circle cx="24" cy="24" r="4" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="nav-title">Gran Logia<br>Nacional</div>
+        </div>
+        <p>Custodios de la tradición, promotores del progreso y defensores de los valores que hacen grande a una nación.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Institución</h5>
+        <ul>
+          <li><a href="nosotros.html">Quiénes Somos</a></li>
+          <li><a href="#">Historia</a></li>
+          <li><a href="#">Autoridades</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Vínculos</h5>
+        <ul>
+          <li><a href="#">Logias</a></li>
+          <li><a href="#">Eventos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Gran Logia Nacional del Perú · Todos los derechos reservados</p>
+      <span class="footer-masonic">A∴L∴G∴D∴G∴A∴D∴U∴</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Estrellas en el hero
+const container = document.getElementById('stars');
+for (let i = 0; i < 70; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  star.style.cssText = `left:${Math.random()*100}%; top:${Math.random()*100}%; --dur:${2+Math.random()*4}s; --delay:${Math.random()*4}s; opacity:${0.2+Math.random()*0.5}`;
+  container.appendChild(star);
+}
+
+// Formulario
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  this.style.display = 'none';
+  document.getElementById('successMessage').style.display = 'block';
+  
+  // Reset form after 4 seconds (optional)
+  setTimeout(() => {
+    this.reset();
+    this.style.display = 'block';
+    document.getElementById('successMessage').style.display = 'none';
+  }, 5000);
+});
+
+// Reveal on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

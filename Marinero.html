@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marineros del Arca Real — Distrito Perú</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ─── MARINEROS COLOUR OVERRIDES ─── */
+    :root {
+      --gold:        #C9A84C;
+      --gold-light:  #E8C97A;
+      --gold-dark:   #8B6914;
+      --green:       #1A4D2E;
+      --green-mid:   #1F5C37;
+      --green-panel: #163D28;
+      --green-card:  #0F2E1C;
+      --green-light: #246B3F;
+      --rainbow-1:   #E84040;
+      --rainbow-2:   #E87840;
+      --rainbow-3:   #E8C840;
+      --rainbow-4:   #4CAF50;
+      --rainbow-5:   #2196F3;
+      --rainbow-6:   #673AB7;
+      --navy:        #0B1F14;
+      --navy-mid:    #0E2719;
+      --navy-panel:  #112E1E;
+      --navy-card:   #152E20;
+      --navy-light:  #1A3D2A;
+      --cream:       #F0EAD6;
+      --cream-muted: #B8D4C0;
+      --text-muted:  #5A9A70;
+      --border:      rgba(80,180,100,0.18);
+      --border-strong: rgba(80,180,100,0.45);
+      --accent:      #4A9C6A;
+    }
+
+    /* ─── HERO BADGE ─── */
+    .hero-badge-wrap {
+      position: relative;
+      width: 160px; height: 160px;
+      margin: 0 auto 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-badge-wrap::before,
+    .hero-badge-wrap::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      animation: pulse-ring 4s ease-in-out infinite;
+    }
+    .hero-badge-wrap::before { inset: -10px; border: 1px solid rgba(201,168,76,0.3); animation-delay: 0.7s; }
+    .hero-badge-wrap::after  { inset: -22px; border: 1px solid rgba(74,156,106,0.2); animation-delay: 1.4s; }
+
+    .hero-badge-img {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      border: 2.5px solid var(--gold);
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      background: var(--navy-card);
+    }
+    .hero-badge-placeholder {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      border: 2.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--green-card);
+      overflow: hidden;
+    }
+
+    /* ─── RAINBOW STRIPE ─── */
+    .rainbow-stripe {
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg,
+        var(--rainbow-1) 0%,
+        var(--rainbow-2) 16.6%,
+        var(--rainbow-3) 33.3%,
+        var(--rainbow-4) 50%,
+        var(--rainbow-5) 66.6%,
+        var(--rainbow-6) 83.3%,
+        var(--rainbow-1) 100%
+      );
+    }
+
+    /* ─── DEGREES ─── */
+    .degrees { background: var(--navy); }
+    .degrees-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .degree-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .degree-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-3), var(--rainbow-4), var(--rainbow-5), var(--rainbow-6));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .degree-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .degree-card:hover::before { transform: scaleX(1); }
+    .degree-roman { font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:0.75rem; }
+    .degree-svg { margin: 0 auto 1.2rem; display: block; }
+    .degree-card h3 { font-family:'Cinzel',serif; font-size:15px; font-weight:600; color:var(--cream); margin-bottom:0.5rem; letter-spacing:0.05em; line-height:1.35; }
+    .degree-card p { font-size:13px; color:var(--text-muted); line-height:1.6; }
+
+    /* ─── LODGES / LOGIAS ─── */
+    .lodges-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .lodge-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .lodge-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--rainbow-4), var(--gold));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .lodge-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .lodge-card:hover::before { transform: scaleX(1); }
+    .lodge-num { font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.25em; color:var(--accent); text-transform:uppercase; margin-bottom:1rem; }
+    .lodge-card h3 { font-family:'Cinzel',serif; font-size:17px; font-weight:600; color:var(--cream); margin-bottom:0.5rem; letter-spacing:0.05em; }
+    .lodge-ciudad { font-size:13px; color:var(--gold); font-family:'Cinzel',serif; letter-spacing:0.1em; margin-bottom:0.75rem; }
+    .lodge-card p { font-size:13px; color:var(--text-muted); line-height:1.6; }
+
+    /* ─── TIMELINE ─── */
+    .historia { background: var(--navy); }
+    .timeline { position:relative; margin-top:3.5rem; padding-left:2.5rem; }
+    .timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px; background:linear-gradient(180deg,transparent,var(--gold),var(--accent),transparent); }
+    .timeline-item { position:relative; margin-bottom:3rem; padding-left:2rem; }
+    .timeline-item::before { content:''; position:absolute; left:-2.5rem; top:0.35rem; width:10px; height:10px; border-radius:50%; background:var(--gold); border:2px solid var(--navy); box-shadow:0 0 0 3px rgba(201,168,76,0.2); }
+    .timeline-year { font-family:'Cinzel Decorative',serif; font-size:1.4rem; color:var(--gold); margin-bottom:0.4rem; line-height:1; }
+    .timeline-item h4 { font-family:'Cinzel',serif; font-size:15px; font-weight:600; color:var(--cream); margin-bottom:0.5rem; letter-spacing:0.05em; }
+    .timeline-item p { font-size:14px; color:var(--text-muted); line-height:1.7; max-width:680px; }
+
+    /* ─── SYMBOLISM ─── */
+    .symbolism { background:var(--navy-mid); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .symbols-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; margin-top:3rem; }
+    .symbol-card { background:var(--navy-card); border:1px solid var(--border); padding:2rem; text-align:center; transition:border-color 0.3s; }
+    .symbol-card:hover { border-color:var(--gold); }
+    .symbol-card svg { display:block; margin:0 auto 1.2rem; }
+    .symbol-card h4 { font-family:'Cinzel',serif; font-size:14px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:0.6rem; }
+    .symbol-card p { font-size:13px; color:var(--text-muted); line-height:1.7; }
+
+    /* ─── NAV GREEN OVERRIDES ─── */
+    nav { background: rgba(11,31,20,0.97); border-bottom-color: var(--border); }
+    .nav-links a:hover { color: var(--gold); }
+    .dropdown-menu { background: var(--navy-panel); }
+    .dropdown-menu a:hover { background: rgba(74,156,106,0.1); color: var(--gold); }
+
+    /* ─── FOOTER GREEN ─── */
+    footer { background: #030D07; }
+
+    /* ─── RAINBOW ARC HERO DECO ─── */
+    .hero-rainbow-deco {
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 300px;
+      pointer-events: none;
+      opacity: 0.07;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width:768px) {
+      .degrees-grid { grid-template-columns:1fr 1fr; }
+      .lodges-grid { grid-template-columns:1fr; }
+      .symbols-grid { grid-template-columns:1fr; }
+    }
+    @media (max-width:480px) {
+      .degrees-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- RAINBOW TOP STRIPE -->
+<div class="rainbow-stripe"></div>
+
+<!-- ══════════════════════════════════════════
+     NAV
+══════════════════════════════════════════ -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-emblem">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 8L36 24L24 40L12 24L24 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M24 12L32 24L24 36L16 24L24 12Z" stroke="currentColor" stroke-width="2.5"/>
+        <circle cx="24" cy="24" r="4" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="nav-title">Gran Logia<br><span>Nacional</span></div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+    <li><a href="RealArco.html">Real Arco</a></li>
+    <li><a href="Marinero.html">Marineros del Arca Real</a></li>
+    <li><a href="#logias.html">Consejo de Masones Críticos</a></li>
+    <li><a href="#logias.html">Preceptoria</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-stars" id="stars"></div>
+
+  <!-- Rainbow arc decoration -->
+  <svg class="hero-rainbow-deco" viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 280 Q300 20 580 280" stroke="#E84040" stroke-width="14" fill="none"/>
+    <path d="M35 280 Q300 40 565 280" stroke="#E87840" stroke-width="12" fill="none"/>
+    <path d="M50 280 Q300 58 550 280" stroke="#E8C840" stroke-width="11" fill="none"/>
+    <path d="M65 280 Q300 76 535 280" stroke="#4CAF50" stroke-width="10" fill="none"/>
+    <path d="M80 280 Q300 94 520 280" stroke="#2196F3" stroke-width="9" fill="none"/>
+    <path d="M95 280 Q300 110 505 280" stroke="#673AB7" stroke-width="8" fill="none"/>
+  </svg>
+
+  <!-- ★ COLOCA AQUÍ TU IMAGEN — reemplaza src="" con la ruta de tu escudo ★ -->
+  <div class="hero-badge-wrap reveal">
+    <img
+      src="Imagenes/LogoMarinero.png"
+      alt="Escudo Marineros del Arca Real Distrito Perú"
+      class="hero-badge-img"
+      id="escudo-img"
+      onerror="this.style.display='none';document.getElementById('escudo-placeholder').style.display='flex';"
+    />
+    <!-- Placeholder SVG mostrado si no hay imagen -->
+    <div class="hero-badge-placeholder" id="escudo-placeholder" style="display:none;">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Rainbow arcs -->
+        <path d="M15 70 Q50 25 85 70" stroke="#E84040" stroke-width="3.5" fill="none"/>
+        <path d="M20 70 Q50 32 80 70" stroke="#E8C840" stroke-width="3" fill="none"/>
+        <path d="M25 70 Q50 39 75 70" stroke="#4CAF50" stroke-width="2.5" fill="none"/>
+        <path d="M30 70 Q50 46 70 70" stroke="#2196F3" stroke-width="2" fill="none"/>
+        <!-- Ark -->
+        <path d="M20 76 Q50 68 80 76 L77 84 Q50 88 23 84 Z" fill="#C9A84C"/>
+        <rect x="36" y="66" width="28" height="10" fill="#C9A84C" opacity="0.7"/>
+        <path d="M34 66 L50 55 L66 66 Z" fill="#C9A84C" opacity="0.5"/>
+        <!-- G in triangle -->
+        <polygon points="50,22 58,36 42,36" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.1)"/>
+        <text x="50" y="34" text-anchor="middle" font-family="serif" font-size="9" fill="#C9A84C">G</text>
+        <!-- Dove -->
+        <circle cx="66" cy="48" r="3" fill="#F0EAD6" opacity="0.8"/>
+        <path d="M66 48 L73 44" stroke="#F0EAD6" stroke-width="1.2"/>
+      </svg>
+    </div>
+  </div>
+
+  <span class="hero-subtitle reveal">Gran Logia del Arca Real del Perú · Fundada 1875</span>
+
+  <h1 class="reveal">Marineros del <span>Arca Real</span></h1>
+
+  <p class="hero-tagline reveal">
+    «Foedus Meum Ponamque Tecum — Estableceré Mi Pacto Contigo»
+  </p>
+
+  <div class="hero-divider"></div>
+
+  <div class="hero-cta reveal">
+    <a href="#logias" class="btn-primary">Nuestras Logias Arca</a>
+    <a href="#contacto" class="btn-outline">Petición de Afiliación</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STATS BAR
+══════════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-num">1875</div>
+      <div class="stat-label">Año de Fundación</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">1°</div>
+      <div class="stat-label">Grado Único del Arca</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Logias Arca Activas</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">149</div>
+      <div class="stat-label">Años de Tradición</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════ -->
+<section class="about" id="sobre">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="section-label">¿Qué son los Marineros del Arca Real?</span>
+        <h2 class="section-title">La Antigua y Honorable<br>Fraternidad del Arca</h2>
+        <div class="gold-line"></div>
+        <p>
+          Los <strong style="color:var(--cream)">Marineros del Arca Real</strong> — en inglés <em>Royal Ark Mariner</em> — conforman una de las órdenes masónicas más antiguas y veneradas dentro del sistema escocés. Su grado único se confiere en Logias Arca que trabajan bajo la Logia de Maestros Marcas a la que están anejas.
+        </p>
+        <p>
+          La orden toma como fundamento alegórico la historia del <strong style="color:var(--cream)">Diluvio Universal y el Arca de Noé</strong>, narrando el pacto eterno entre el Creador y la humanidad, sellado por el arco iris. El lema oficial — <em>Foedus Meum Ponamque Tecum</em> — proviene del Génesis y significa «Estableceré Mi Pacto Contigo».
+        </p>
+        <p>
+          En el Perú, la <strong style="color:var(--cream)">Gran Logia del Arca Real</strong> regula las Logias Arca bajo la obediencia del <em>Grand Lodge of Royal Ark Mariners</em> de Gran Bretaña, preservando el ritual y la tradición desde el siglo XIX.
+        </p>
+      </div>
+      <div class="about-pillars reveal">
+        <div class="pillar">
+          <!-- Rainbow SVG -->
+          <svg class="pillar-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 34 Q22 8 39 34" stroke="#E84040" stroke-width="2.2" fill="none"/>
+            <path d="M8 34 Q22 13 36 34" stroke="#E8C840" stroke-width="2" fill="none"/>
+            <path d="M11 34 Q22 18 33 34" stroke="#4CAF50" stroke-width="1.8" fill="none"/>
+            <path d="M14 34 Q22 23 30 34" stroke="#2196F3" stroke-width="1.5" fill="none"/>
+          </svg>
+          <h4>El Arco Iris</h4>
+          <p>Símbolo del pacto divino con Noé, el arco iris corona toda la iconografía de los Marineros del Arca Real.</p>
+        </div>
+        <div class="pillar">
+          <!-- Ark SVG -->
+          <svg class="pillar-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 30 Q22 24 38 30 L36 38 Q22 40 8 38 Z" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.1)"/>
+            <rect x="16" y="22" width="12" height="8" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.06)"/>
+            <path d="M15 22 L22 15 L29 22" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+          </svg>
+          <h4>El Arca de Noé</h4>
+          <p>La nave de la salvación es el símbolo central de la orden, representando la preservación de la humanidad y la virtud.</p>
+        </div>
+        <div class="pillar">
+          <!-- Dove with olive branch -->
+          <svg class="pillar-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="28" cy="16" r="5" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.1)"/>
+            <path d="M28 16 L38 10 L34 18 Z" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.08)"/>
+            <path d="M23 20 Q18 26 14 30 Q18 28 22 32" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <circle cx="14" cy="32" r="2" fill="#C9A84C" opacity="0.4"/>
+          </svg>
+          <h4>La Paloma</h4>
+          <p>Mensajera de la paz y portadora del ramo de olivo, anuncia el fin del diluvio y el inicio de una nueva era de esperanza.</p>
+        </div>
+        <div class="pillar">
+          <!-- Triangle G -->
+          <svg class="pillar-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="22,5 40,35 4,35" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.06)"/>
+            <!-- Sun rays behind -->
+            <line x1="22" y1="2" x2="22" y2="6" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
+            <line x1="30" y1="5" x2="28" y2="8" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
+            <line x1="14" y1="5" x2="16" y2="8" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
+            <text x="22" y="28" text-anchor="middle" font-family="Cinzel, serif" font-size="14" fill="#C9A84C">G</text>
+          </svg>
+          <h4>La Gran «G»</h4>
+          <p>Dentro del triángulo radiante, la letra G recuerda al Gran Arquitecto del Universo, origen y fin de toda la sabiduría masónica.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     EL GRADO
+══════════════════════════════════════════ -->
+<section class="degrees" id="grado">
+  <div class="section-inner">
+    <span class="section-label">Estructura Capitular</span>
+    <h2 class="section-title reveal">El Grado del Arca Real Marinero</h2>
+    <div class="gold-line"></div>
+    <p class="reveal" style="color:var(--text-muted);max-width:700px;margin-bottom:0;">
+      A diferencia de otros sistemas con múltiples grados, los Marineros del Arca Real confieren un único grado de profunda riqueza simbólica y alegórica. El candidato debe ser Maestro Masón en regla y haber recibido el grado de Maestro de Marca.
+    </p>
+
+    <div class="degrees-grid">
+
+      <!-- Requisito previo -->
+      <div class="degree-card reveal">
+        <div class="degree-roman">Prerrequisito</div>
+        <svg class="degree-svg" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" stroke="#C9A84C" stroke-width="1.2" fill="rgba(15,46,28,0.6)"/>
+          <!-- Square & Compass -->
+          <path d="M18 42 L30 18 L42 42" stroke="#C9A84C" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M20 36 L40 36" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="30" cy="30" r="5" stroke="#4A9C6A" stroke-width="1.2" fill="none"/>
+          <text x="30" y="33" text-anchor="middle" font-family="serif" font-size="7" fill="#C9A84C">M∴M∴</text>
+        </svg>
+        <h3>Maestro Masón y<br>Maestro de Marca</h3>
+        <p>Todo candidato al grado de Marinero del Arca Real debe ser Maestro Masón regular y poseer el grado de Maestro de Marca, ambos bajo obediencia reconocida.</p>
+      </div>
+
+      <!-- El Grado único -->
+      <div class="degree-card reveal" style="border-color:rgba(201,168,76,0.4);">
+        <div class="degree-roman" style="color:var(--gold);">Grado Único</div>
+        <svg class="degree-svg" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" stroke="#C9A84C" stroke-width="1.8" fill="rgba(15,46,28,0.6)"/>
+          <!-- Rainbow arcs -->
+          <path d="M8 38 Q30 12 52 38" stroke="#E84040" stroke-width="2.2" fill="none"/>
+          <path d="M11 40 Q30 16 49 40" stroke="#E8C840" stroke-width="2" fill="none"/>
+          <path d="M14 42 Q30 20 46 42" stroke="#4CAF50" stroke-width="1.8" fill="none"/>
+          <path d="M17 44 Q30 24 43 44" stroke="#2196F3" stroke-width="1.5" fill="none"/>
+          <!-- Ark -->
+          <path d="M14 48 Q30 42 46 48 L44 53 Q30 55 16 53 Z" fill="#C9A84C" opacity="0.8"/>
+          <rect x="24" y="41" width="12" height="7" fill="#C9A84C" opacity="0.6"/>
+          <path d="M23 41 L30 34 L37 41" fill="#C9A84C" opacity="0.4"/>
+          <!-- Dove -->
+          <circle cx="42" cy="30" r="2.5" fill="#F0EAD6" opacity="0.9"/>
+          <path d="M42 30 L47 27" stroke="#F0EAD6" stroke-width="1.2"/>
+        </svg>
+        <h3>Marinero del Arca Real</h3>
+        <p>El grado supremo y único de la orden. A través de la alegoría del diluvio y del Arca de Noé, el candidato recibe las enseñanzas del pacto eterno y la promesa de salvación.</p>
+      </div>
+
+      <!-- Oficiales -->
+      <div class="degree-card reveal">
+        <div class="degree-roman">Gobierno</div>
+        <svg class="degree-svg" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" stroke="#C9A84C" stroke-width="1.2" fill="rgba(15,46,28,0.6)"/>
+          <!-- Crown / Helm -->
+          <path d="M16 36 L16 28 L22 34 L30 20 L38 34 L44 28 L44 36 Z" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.1)"/>
+          <line x1="16" y1="36" x2="44" y2="36" stroke="#C9A84C" stroke-width="2"/>
+          <rect x="22" y="36" width="16" height="6" rx="1" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.08)"/>
+          <circle cx="30" cy="20" r="2.5" fill="#C9A84C" opacity="0.6"/>
+        </svg>
+        <h3>Oficiales de la Logia Arca</h3>
+        <p>El Comandante del Arca preside la Logia, asistido por el Primer y Segundo Oficial, el Piloto, el Capellán y demás cargos que gobiernan los trabajos del grado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     HISTORIA
+══════════════════════════════════════════ -->
+<section class="historia" id="historia">
+  <div class="section-inner">
+    <div class="about-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
+      <div>
+        <span class="section-label">Historia</span>
+        <h2 class="section-title reveal">Los Marineros del Arca en el Perú</h2>
+        <div class="gold-line"></div>
+        <div class="timeline reveal">
+
+          <div class="timeline-item">
+            <div class="timeline-year">s. XVII</div>
+            <h4>Orígenes Británicos</h4>
+            <p>El grado de Marinero del Arca Real tiene raíces en las logias de la costa oeste de Inglaterra. Las primeras referencias documentadas lo sitúan en Bristol hacia 1790, vinculadas al comercio marítimo y a las cofradías de constructores navales.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">1871</div>
+            <h4>Grand Lodge of Royal Ark Mariners</h4>
+            <p>El <em>Supreme Grand Royal Arch Chapter of Scotland</em> y posteriormente la Gran Logia Unida de Inglaterra formalizan el gobierno del grado, unificando las Logias Arca bajo una sola obediencia regular.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">1875</div>
+            <h4>Llegada al Perú</h4>
+            <p>Los primeros Maestros de Marca con el grado de Marinero del Arca Real se reúnen en Lima bajo patente escocesa, estableciendo la primera Logia Arca en territorio peruano y dando inicio a la tradición nacional de la orden.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">1920</div>
+            <h4>Expansión Nacional</h4>
+            <p>Logias Arca se constituyen en Arequipa y Trujillo, extendiendo la enseñanza del pacto noético a los hermanos Maestros de Marca del interior del país.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2024</div>
+            <h4>Renovación y Continuidad</h4>
+            <p>La Gran Logia del Arca Real del Perú consolida su presencia institucional y digital, manteniendo la pureza ritual y la fraternidad con las grandes potencias que gobiernan la orden en el mundo.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="reveal" style="padding-top:4rem;">
+        <div class="pillar" style="margin-bottom:1.5rem;text-align:left;padding:2rem;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin-bottom:0.75rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 20 Q16 6 29 20" stroke="#E84040" stroke-width="2" fill="none"/>
+            <path d="M5 22 Q16 9 27 22" stroke="#E8C840" stroke-width="1.8" fill="none"/>
+            <path d="M7 24 Q16 12 25 24" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
+            <path d="M5 26 Q16 26 27 26 L25 29 Q16 31 7 29 Z" fill="#C9A84C" opacity="0.7"/>
+          </svg>
+          <h4 style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.1em;color:var(--cream);margin-bottom:0.5rem;">GRAND LODGE OF ROYAL ARK MARINERS</h4>
+          <p style="font-size:13px;color:var(--text-muted);">Con sede en Gran Bretaña, es la máxima autoridad mundial de la orden. La Gran Logia del Perú trabaja en estrecha comunión fraternal con ella, preservando la uniformidad del ritual.</p>
+        </div>
+
+        <div class="pillar" style="text-align:left;padding:2rem;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin-bottom:0.75rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="16,3 28,11 28,21 16,29 4,21 4,11" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+            <text x="16" y="20" text-anchor="middle" font-family="serif" font-size="11" fill="#C9A84C">G</text>
+          </svg>
+          <h4 style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.1em;color:var(--cream);margin-bottom:0.5rem;">FOEDUS MEUM PONAMQUE TECUM</h4>
+          <p style="font-size:13px;color:var(--text-muted);">«Estableceré Mi Pacto Contigo» — lema de la orden tomado del libro del Génesis (6:18), que sintetiza la promesa de protección y redención en el corazón de los Marineros del Arca Real.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     LOGIAS ARCA DEL PERÚ
+══════════════════════════════════════════ -->
+<section class="about" id="logias" style="background:var(--navy-mid);">
+  <div class="section-inner">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:1rem;">
+      <div>
+        <span class="section-label">Obediencia del Perú</span>
+        <h2 class="section-title reveal">Logias Arca Constituidas</h2>
+        <div class="gold-line"></div>
+      </div>
+      <a href="#contacto" class="btn-outline reveal">Petición de Constitución</a>
+    </div>
+
+    <div class="lodges-grid">
+
+      <div class="lodge-card reveal">
+        <div class="lodge-num">Logia Arca N.° 1</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.5" fill="rgba(15,46,28,0.7)"/>
+          <path d="M8 32 Q26 14 44 32" stroke="#E84040" stroke-width="2" fill="none"/>
+          <path d="M11 34 Q26 17 41 34" stroke="#E8C840" stroke-width="1.8" fill="none"/>
+          <path d="M14 36 Q26 20 38 36" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
+          <path d="M10 40 Q26 34 42 40 L40 45 Q26 47 12 45 Z" fill="#C9A84C" opacity="0.7"/>
+          <rect x="20" y="33" width="12" height="7" fill="#C9A84C" opacity="0.5"/>
+          <path d="M19 33 L26 26 L33 33" fill="#C9A84C" opacity="0.35"/>
+        </svg>
+        <h3>Logia Arca Noé</h3>
+        <div class="lodge-ciudad">Lima — Sede Central</div>
+        <p>Logia fundadora y sede de la Gran Logia del Arca Real del Perú. Preserva la liturgia original del grado y guía a las demás Logias Arca del distrito.</p>
+      </div>
+
+      <div class="lodge-card reveal">
+        <div class="lodge-num">Logia Arca N.° 2</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="26,3 49,14.5 49,37.5 26,49 3,37.5 3,14.5" stroke="#C9A84C" stroke-width="1.5" fill="rgba(15,46,28,0.7)"/>
+          <path d="M10 34 Q26 16 42 34" stroke="#2196F3" stroke-width="2" fill="none"/>
+          <path d="M13 36 Q26 20 39 36" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+          <circle cx="26" cy="14" r="4" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.1)"/>
+          <text x="26" y="17" text-anchor="middle" font-family="serif" font-size="6" fill="#C9A84C">G</text>
+          <path d="M10 42 Q26 36 42 42 L40 47 Q26 49 12 47 Z" fill="#C9A84C" opacity="0.6"/>
+        </svg>
+        <h3>Logia Arca Ararat</h3>
+        <div class="lodge-ciudad">Lima</div>
+        <p>Lleva el nombre del monte donde el Arca de Noé encontró reposo. Trabaja con especial énfasis en la dimensión filosófica y bíblica del grado.</p>
+      </div>
+
+      <div class="lodge-card reveal">
+        <div class="lodge-num">Logia Arca N.° 3</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="#4A9C6A" stroke-width="1.5" fill="rgba(15,46,28,0.7)"/>
+          <!-- Olive branch simplified -->
+          <path d="M14 38 Q20 28 30 20 Q34 28 26 34 Q32 24 38 20" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <circle cx="22" cy="30" r="2.5" fill="#C9A84C" opacity="0.4"/>
+          <circle cx="30" cy="22" r="2.5" fill="#C9A84C" opacity="0.4"/>
+          <circle cx="36" cy="22" r="2" fill="#C9A84C" opacity="0.3"/>
+          <!-- Dove -->
+          <circle cx="12" cy="20" r="3" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,0.1)"/>
+          <path d="M12 20 L17 16" stroke="#C9A84C" stroke-width="1.2"/>
+        </svg>
+        <h3>Logia Arca Paloma de Paz</h3>
+        <div class="lodge-ciudad">Arequipa</div>
+        <p>Custodio del grado en el sur del Perú. Su nombre evoca a la paloma mensajera de Noé, símbolo de esperanza, paz y renovación tras el diluvio.</p>
+      </div>
+
+      <div class="lodge-card reveal">
+        <div class="lodge-num">Logia Arca N.° 4</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="26,3 49,14.5 49,37.5 26,49 3,37.5 3,14.5" stroke="#C9A84C" stroke-width="1.5" fill="rgba(15,46,28,0.7)"/>
+          <path d="M8 36 Q26 18 44 36" stroke="#E84040" stroke-width="2.2" fill="none"/>
+          <path d="M11 38 Q26 22 41 38" stroke="#E87840" stroke-width="1.8" fill="none"/>
+          <path d="M14 40 Q26 26 38 40" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
+          <path d="M10 44 Q26 38 42 44 L40 48 Q26 50 12 48 Z" fill="#C9A84C" opacity="0.65"/>
+        </svg>
+        <h3>Logia Arca Génesis</h3>
+        <div class="lodge-ciudad">Trujillo</div>
+        <p>Fundada en el norte del Perú, lleva el nombre del libro que contiene la narración del diluvio y el pacto de Dios con Noé, fundamento teológico de la orden.</p>
+      </div>
+
+      <div class="lodge-card reveal">
+        <div class="lodge-num">Logia Arca N.° 5</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.5" fill="rgba(15,46,28,0.7)"/>
+          <!-- Waves -->
+          <path d="M8 36 Q14 30 20 36 Q26 30 32 36 Q38 30 44 36" stroke="#4A9C6A" stroke-width="1.8" fill="none"/>
+          <path d="M8 40 Q14 34 20 40 Q26 34 32 40 Q38 34 44 40" stroke="#2196F3" stroke-width="1.5" fill="none"/>
+          <!-- Anchor simplified -->
+          <line x1="26" y1="14" x2="26" y2="28" stroke="#C9A84C" stroke-width="2"/>
+          <line x1="20" y1="18" x2="32" y2="18" stroke="#C9A84C" stroke-width="1.5"/>
+          <path d="M20 28 Q26 32 32 28" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+        </svg>
+        <h3>Logia Arca Callao</h3>
+        <div class="lodge-ciudad">Callao</div>
+        <p>Vinculada a la tradición marítima del primer puerto del Perú, esta Logia Arca honra con especial fervor la vocación náutica inherente a los Marineros del Arca Real.</p>
+      </div>
+
+      <div class="lodge-card reveal" style="border-style:dashed;opacity:0.7;">
+        <div class="lodge-num">Constitución Futura</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="rgba(80,180,100,0.4)" stroke-width="1.5" stroke-dasharray="4 3" fill="rgba(15,46,28,0.3)"/>
+          <line x1="26" y1="14" x2="26" y2="38" stroke="rgba(74,156,106,0.5)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="14" y1="26" x2="38" y2="26" stroke="rgba(74,156,106,0.5)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h3>Nueva Logia Arca</h3>
+        <div class="lodge-ciudad" style="color:var(--text-muted);">En Proceso</div>
+        <p>¿Desea constituir una nueva Logia Arca? La Gran Logia del Arca Real del Perú recibe peticiones de grupos de Maestros de Marca debidamente reunidos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PRINCIPLES
+══════════════════════════════════════════ -->
+<section class="principles">
+  <div class="section-inner">
+    <span class="section-label">Filosofía de la Orden</span>
+    <h2 class="section-title reveal">Las Virtudes del Marinero</h2>
+    <div class="gold-line" style="margin:0 auto 2.5rem;"></div>
+
+    <div class="principles-quote reveal">
+      <blockquote>
+        «Y Dios dijo: Pongo mi arco en las nubes, el cual será por señal del pacto entre mí y la tierra.»
+      </blockquote>
+      <cite>— Génesis 9:13 · Fundamento Escritural de la Orden</cite>
+    </div>
+
+    <div class="principles-trio reveal">
+      <div class="principle-item" data-roman="I">
+        <h3>Fe</h3>
+        <p>Como Noé creyó en la promesa divina y construyó el Arca sin ver aún la lluvia, el Marinero del Arca Real cultiva una fe inquebrantable que precede a toda evidencia visible.</p>
+      </div>
+      <div class="principle-item" data-roman="II">
+        <h3>Esperanza</h3>
+        <p>El arco iris al término del diluvio es el símbolo eterno de la esperanza renovada. El Marinero vive orientado hacia la promesa de luz que sigue a toda tribulación.</p>
+      </div>
+      <div class="principle-item" data-roman="III">
+        <h3>Caridad</h3>
+        <p>Noé preservó toda forma de vida en el Arca. El Marinero extiende la misma solicitud universal, reconociendo en cada ser humano un pasajero del mismo Arca de la existencia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SIMBOLISMO
+══════════════════════════════════════════ -->
+<section class="symbolism" id="simbolismo">
+  <div class="section-inner">
+    <span class="section-label">Simbología Sagrada</span>
+    <h2 class="section-title reveal">Símbolos de los Marineros del Arca Real</h2>
+    <div class="gold-line"></div>
+
+    <div class="symbols-grid">
+
+      <div class="symbol-card reveal">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 52 Q36 10 66 52" stroke="#E84040" stroke-width="4" fill="none"/>
+          <path d="M9 54 Q36 14 63 54" stroke="#E87840" stroke-width="3.5" fill="none"/>
+          <path d="M12 56 Q36 18 60 56" stroke="#E8C840" stroke-width="3" fill="none"/>
+          <path d="M15 58 Q36 22 57 58" stroke="#4CAF50" stroke-width="2.8" fill="none"/>
+          <path d="M18 60 Q36 26 54 60" stroke="#2196F3" stroke-width="2.5" fill="none"/>
+          <path d="M21 62 Q36 30 51 62" stroke="#673AB7" stroke-width="2.2" fill="none"/>
+        </svg>
+        <h4>El Arco Iris</h4>
+        <p>Símbolo central de la orden. Los siete colores del arco iris representan los siete dones del espíritu y el pacto eterno sellado entre el Creador y la humanidad tras el diluvio de Noé.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Ark detailed -->
+          <path d="M10 50 Q36 40 62 50 L58 60 Q36 64 14 60 Z" stroke="#C9A84C" stroke-width="1.8" fill="rgba(21,46,28,0.6)"/>
+          <rect x="26" y="38" width="20" height="12" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.08)"/>
+          <path d="M24 38 L36 26 L48 38" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+          <!-- Window -->
+          <rect x="32" y="30" width="8" height="5" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,0.12)"/>
+          <!-- Waves -->
+          <path d="M6 58 Q12 54 18 58 Q24 54 30 58" stroke="#2196F3" stroke-width="1.2" fill="none" opacity="0.6"/>
+          <path d="M42 58 Q48 54 54 58 Q60 54 66 58" stroke="#2196F3" stroke-width="1.2" fill="none" opacity="0.6"/>
+        </svg>
+        <h4>El Arca de Noé</h4>
+        <p>Nave de salvación construida por Noé según instrucción divina. Representa la iglesia, la fraternidad y todo refugio que protege a los justos en tiempos de tribulación universal.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Triangle with G and sun rays -->
+          <polygon points="36,10 58,48 14,48" stroke="#C9A84C" stroke-width="2" fill="rgba(21,46,28,0.5)"/>
+          <!-- Sun rays -->
+          <line x1="36" y1="4" x2="36" y2="9" stroke="#C9A84C" stroke-width="1.5" opacity="0.6"/>
+          <line x1="44" y1="6" x2="42" y2="10" stroke="#C9A84C" stroke-width="1.2" opacity="0.5"/>
+          <line x1="28" y1="6" x2="30" y2="10" stroke="#C9A84C" stroke-width="1.2" opacity="0.5"/>
+          <line x1="50" y1="10" x2="47" y2="13" stroke="#C9A84C" stroke-width="1" opacity="0.4"/>
+          <line x1="22" y1="10" x2="25" y2="13" stroke="#C9A84C" stroke-width="1" opacity="0.4"/>
+          <text x="36" y="38" text-anchor="middle" font-family="Cinzel,serif" font-size="20" fill="#C9A84C">G</text>
+        </svg>
+        <h4>La Gran «G» Radiante</h4>
+        <p>El triángulo que irradia la «G» del Gran Arquitecto del Universo corona la iconografía de la orden, recordando que toda sabiduría procede de la fuente divina.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Dove with olive branch -->
+          <ellipse cx="42" cy="28" rx="10" ry="7" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.08)" transform="rotate(-20 42 28)"/>
+          <path d="M42 28 L56 18 L50 28 Z" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.06)"/>
+          <circle cx="48" cy="22" r="2" fill="#C9A84C" opacity="0.5"/>
+          <!-- Olive branch -->
+          <path d="M32 35 Q24 44 18 50 Q24 42 20 54" stroke="#4A9C6A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="22" cy="44" rx="4" ry="2.5" fill="#4A9C6A" opacity="0.4" transform="rotate(-30 22 44)"/>
+          <ellipse cx="26" cy="40" rx="4" ry="2.5" fill="#4A9C6A" opacity="0.4" transform="rotate(-50 26 40)"/>
+          <ellipse cx="19" cy="50" rx="3.5" ry="2" fill="#4A9C6A" opacity="0.4" transform="rotate(-10 19 50)"/>
+        </svg>
+        <h4>La Paloma y el Olivo</h4>
+        <p>La paloma que regresa al Arca llevando un ramo de olivo fresco anuncia el fin de las aguas y el inicio de la paz. Símbolo de esperanza y del retorno a la tierra firme de la virtud.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Waves -->
+          <path d="M8 30 Q18 22 28 30 Q38 22 48 30 Q58 22 68 30" stroke="#2196F3" stroke-width="2.5" fill="none"/>
+          <path d="M8 40 Q18 32 28 40 Q38 32 48 40 Q58 32 68 40" stroke="#4A90C8" stroke-width="2" fill="none"/>
+          <path d="M8 50 Q18 42 28 50 Q38 42 48 50 Q58 42 68 50" stroke="#4A9C6A" stroke-width="1.5" fill="none"/>
+          <!-- Cross above waters -->
+          <line x1="36" y1="8" x2="36" y2="22" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="28" y1="14" x2="44" y2="14" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <h4>Las Aguas del Diluvio</h4>
+        <p>Las aguas del gran diluvio representan la purificación universal. En la liturgia del grado, el candidato atraviesa simbólicamente las aguas para ser regenerado y renovado en virtud.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Anchor -->
+          <line x1="36" y1="14" x2="36" y2="52" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="26" y1="20" x2="46" y2="20" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M24 52 Q36 60 48 52" stroke="#C9A84C" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- Ring at top -->
+          <circle cx="36" cy="12" r="4" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+          <!-- Rope spiral around shaft -->
+          <path d="M33 26 Q40 28 33 32 Q40 34 33 38 Q40 40 33 44" stroke="#C9A84C" stroke-width="0.8" fill="none" opacity="0.5"/>
+        </svg>
+        <h4>El Ancla de la Esperanza</h4>
+        <p>El ancla, símbolo marítimo por excelencia, representa la esperanza firme y segura que ancla el alma del Marinero del Arca Real en medio de las tormentas de la vida.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CONTACTO
+══════════════════════════════════════════ -->
+<section class="logias" id="contacto">
+  <div class="section-inner">
+    <div class="logias-intro">
+      <div>
+        <span class="section-label">Petición de Afiliación</span>
+        <h2 class="section-title reveal">Embárquese en el Arca Real</h2>
+        <div class="gold-line"></div>
+      </div>
+    </div>
+
+    <div style="max-width:700px;margin:0 auto;" class="reveal">
+      <div class="modal-roles" style="margin-bottom:2.5rem;">
+        <div class="role-card">
+          <svg class="role-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 22 Q18 8 32 22" stroke="#E84040" stroke-width="2" fill="none"/>
+            <path d="M6 24 Q18 11 30 24" stroke="#E8C840" stroke-width="1.8" fill="none"/>
+            <path d="M8 26 Q18 14 28 26" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
+            <path d="M4 30 Q18 24 32 30 L30 34 Q18 36 6 34 Z" fill="#C9A84C" opacity="0.7"/>
+          </svg>
+          <h4>Maestro de Marca</h4>
+          <p>Para recibir el grado de Marinero del Arca Real se requiere ser Maestro Masón regular y poseer el grado de Maestro de Marca vigente.</p>
+        </div>
+        <div class="role-card">
+          <svg class="role-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="18" y1="4" x2="18" y2="24" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+            <line x1="12" y1="8" x2="24" y2="8" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 24 Q18 28 24 24" stroke="#C9A84C" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <circle cx="18" cy="3" r="2" stroke="#C9A84C" stroke-width="1" fill="none"/>
+            <path d="M4 30 Q18 24 32 30" stroke="#2196F3" stroke-width="1.5" fill="none"/>
+          </svg>
+          <h4>Nueva Logia Arca</h4>
+          <p>Grupos de Maestros de Marca regularmente constituidos pueden solicitar patente para fundar una nueva Logia Arca bajo la Gran Logia del Perú.</p>
+        </div>
+      </div>
+
+      <div style="background:var(--navy-card);border:1px solid var(--border);padding:2.5rem;">
+        <div class="form-title">Formulario de Petición</div>
+        <div class="form-grid" id="afiliacion-form">
+          <div class="form-group">
+            <label>Nombre Completo *</label>
+            <input type="text" placeholder="Su nombre completo" />
+          </div>
+          <div class="form-group">
+            <label>Apellidos *</label>
+            <input type="text" placeholder="Sus apellidos" />
+          </div>
+          <div class="form-group">
+            <label>Correo Electrónico *</label>
+            <input type="email" placeholder="correo@ejemplo.com" />
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="+51 999 000 000" />
+          </div>
+          <div class="form-group">
+            <label>Logia de Maestros de Marca *</label>
+            <input type="text" placeholder="Nombre y número de su Logia de Marca" />
+          </div>
+          <div class="form-group">
+            <label>Ciudad *</label>
+            <select>
+              <option value="">Seleccione ciudad</option>
+              <option>Lima</option>
+              <option>Arequipa</option>
+              <option>Trujillo</option>
+              <option>Callao</option>
+              <option>Cusco</option>
+              <option>Piura</option>
+              <option>Otra</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Años como Maestro de Marca</label>
+            <input type="number" min="1" placeholder="Ej: 3" />
+          </div>
+          <div class="form-group full">
+            <label>Mensaje o Consulta</label>
+            <textarea placeholder="Escriba su mensaje o consulta a la Gran Logia del Arca Real del Perú…"></textarea>
+          </div>
+        </div>
+        <button class="form-submit" onclick="handleSubmit()">Enviar Petición a la Gran Logia</button>
+
+        <div class="form-success" id="form-success">
+          <svg class="success-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="22" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.08)"/>
+            <path d="M14 24 L21 31 L34 17" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <h3>Petición Recibida</h3>
+          <p>Su solicitud ha sido transmitida al Gran Secretario de la Gran Logia del Arca Real del Perú. Será contactado a la brevedad. <em>Foedus Meum Ponamque Tecum.</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     RAINBOW BOTTOM STRIPE
+══════════════════════════════════════════ -->
+<div class="rainbow-stripe"></div>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer id="contacto">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom: 1rem;">
+          <div class="nav-emblem">
+            <svg width="42" height="42" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 8L36 24L24 40L12 24L24 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M24 12L32 24L24 36L16 24L24 12Z" stroke="currentColor" stroke-width="2.5"/>
+              <circle cx="24" cy="24" r="4" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="nav-title">Gran Logia<br>Nacional</div>
+        </div>
+        <p>Custodios de la tradición, promotores del progreso y defensores de los valores que hacen grande a una nación.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Institución</h5>
+        <ul>
+          <li><a href="nosotros.html">Quiénes Somos</a></li>
+          <li><a href="#">Historia</a></li>
+          <li><a href="#">Autoridades</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Vínculos</h5>
+        <ul>
+          <li><a href="#logias">Logias</a></li>
+          <li><a href="#">Eventos</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Gran Logia Nacional del Perú · Todos los derechos reservados</p>
+      <span class="footer-masonic">A∴L∴G∴D∴G∴A∴D∴U∴</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════ -->
+<script>
+  /* ─── STARS ─── */
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      --dur: ${2.5 + Math.random() * 3}s;
+      --delay: ${Math.random() * 4}s;
+      opacity: 0.15;
+    `;
+    starsContainer.appendChild(star);
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* ─── FORM ─── */
+  function handleSubmit() {
+    const form = document.getElementById('afiliacion-form');
+    const success = document.getElementById('form-success');
+    form.style.display = 'none';
+    document.querySelector('.form-title').style.display = 'none';
+    document.querySelector('.form-submit').style.display = 'none';
+    success.classList.add('active');
+  }
+
+  /* ─── SMOOTH NAV ─── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>
