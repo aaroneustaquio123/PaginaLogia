@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preceptoría — Caballeros Templarios — Distrito Perú</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ─── PRECEPTORÍA COLOUR OVERRIDES — Crimson & Steel ─── */
+    :root {
+      --gold:          #C9A84C;
+      --gold-light:    #E8C97A;
+      --gold-dark:     #8B6914;
+      --crimson:       #8B1A1A;
+      --crimson-mid:   #A01E1E;
+      --crimson-light: #C0292929;
+      --steel:         #4A4E5A;
+      --steel-light:   #6B7280;
+      --navy:          #12100E;
+      --navy-mid:      #1A1512;
+      --navy-panel:    #201A16;
+      --navy-card:     #261E18;
+      --navy-light:    #2E2318;
+      --cream:         #F0EAD6;
+      --cream-muted:   #D4C9A8;
+      --text-muted:    #8A7A5A;
+      --border:        rgba(180,140,60,0.18);
+      --border-strong: rgba(180,140,60,0.5);
+      --accent:        #B22222;
+    }
+
+    /* ─── HERO BADGE ─── */
+    .hero-badge-wrap {
+      position: relative;
+      width: 170px; height: 170px;
+      margin: 0 auto 2.5rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-badge-wrap::before,
+    .hero-badge-wrap::after {
+      content: ''; position: absolute; border-radius: 50%;
+      animation: pulse-ring 4s ease-in-out infinite;
+    }
+    .hero-badge-wrap::before { inset:-10px; border:1px solid rgba(201,168,76,0.3); animation-delay:0.7s; }
+    .hero-badge-wrap::after  { inset:-22px; border:1px solid rgba(178,34,34,0.2); animation-delay:1.4s; }
+
+    .hero-badge-img {
+      width:160px; height:160px; border-radius:50%;
+      border:2.5px solid var(--gold);
+      object-fit:cover; object-position:center top;
+      display:block; background:var(--navy-card);
+    }
+    .hero-badge-placeholder {
+      width:160px; height:160px; border-radius:50%;
+      border:2.5px solid var(--gold);
+      display:flex; align-items:center; justify-content:center;
+      background:var(--navy-card); overflow:hidden;
+    }
+
+    /* ─── BLOOD-RED TOP BAND ─── */
+    .crimson-band {
+      width:100%; height:6px;
+      background: linear-gradient(90deg, #8B1A1A 0%, #C9A84C 50%, #8B1A1A 100%);
+    }
+
+    /* ─── FLAME DECO (hero) ─── */
+    .hero-flames {
+      position:absolute; bottom:0; left:0; right:0;
+      height:200px; pointer-events:none; overflow:hidden; opacity:0.06;
+    }
+
+    /* ─── GRADOS ─── */
+    .degrees { background: var(--navy); }
+    .degrees-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:2rem; margin-top:3rem;
+    }
+    .degree-card {
+      background:var(--navy-card); border:1px solid var(--border);
+      padding:2rem 1.5rem; text-align:center;
+      transition:all 0.3s; position:relative; overflow:hidden;
+    }
+    .degree-card::before {
+      content:''; position:absolute;
+      top:0; left:0; right:0; height:3px;
+      background:linear-gradient(90deg, var(--crimson), var(--gold), var(--crimson));
+      transform:scaleX(0); transition:transform 0.3s;
+    }
+    .degree-card:hover { border-color:var(--gold); transform:translateY(-4px); box-shadow:0 20px 60px rgba(0,0,0,0.6); }
+    .degree-card:hover::before { transform:scaleX(1); }
+    .degree-roman { font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:0.75rem; }
+    .degree-svg { margin:0 auto 1.2rem; display:block; }
+    .degree-card h3 { font-family:'Cinzel',serif; font-size:15px; font-weight:600; color:var(--cream); margin-bottom:0.5rem; letter-spacing:0.05em; line-height:1.35; }
+    .degree-card p { font-size:13px; color:var(--text-muted); line-height:1.6; }
+
+    /* ─── PRECEPTORÍAS GRID ─── */
+    .precept-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:2rem; margin-top:3rem;
+    }
+    .precept-card {
+      background:var(--navy-card); border:1px solid var(--border);
+      padding:2.5rem 2rem; text-align:center;
+      cursor:pointer; transition:all 0.3s;
+      position:relative; overflow:hidden;
+    }
+    .precept-card::before {
+      content:''; position:absolute;
+      top:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg, var(--crimson), var(--gold));
+      transform:scaleX(0); transition:transform 0.3s;
+    }
+    .precept-card:hover { border-color:var(--gold); transform:translateY(-4px); box-shadow:0 20px 60px rgba(0,0,0,0.6); }
+    .precept-card:hover::before { transform:scaleX(1); }
+    .precept-num { font-family:'Cinzel',serif; font-size:11px; letter-spacing:0.25em; color:var(--accent); text-transform:uppercase; margin-bottom:1rem; }
+    .precept-card h3 { font-family:'Cinzel',serif; font-size:17px; font-weight:600; color:var(--cream); margin-bottom:0.5rem; letter-spacing:0.05em; }
+    .precept-ciudad { font-size:13px; color:var(--gold); font-family:'Cinzel',serif; letter-spacing:0.1em; margin-bottom:0.75rem; }
+    .precept-card p { font-size:13px; color:var(--text-muted); line-height:1.6; }
+
+    /* ─── TIMELINE ─── */
+    .historia { background:var(--navy); }
+    .timeline { position:relative; margin-top:3.5rem; padding-left:2.5rem; }
+    .timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px; background:linear-gradient(180deg,transparent,var(--gold),var(--crimson),transparent); }
+    .timeline-item { position:relative; margin-bottom:3rem; padding-left:2rem; }
+    .timeline-item::before { content:''; position:absolute; left:-2.5rem; top:0.35rem; width:10px; height:10px; border-radius:50%; background:var(--gold); border:2px solid var(--navy); box-shadow:0 0 0 3px rgba(201,168,76,0.2); }
+    .timeline-year { font-family:'Cinzel Decorative',serif; font-size:1.4rem; color:var(--gold); margin-bottom:0.4rem; line-height:1; }
+    .timeline-item h4 { font-family:'Cinzel',serif; font-size:15px; font-weight:600; color:var(--cream); margin-bottom:0.5rem; letter-spacing:0.05em; }
+    .timeline-item p { font-size:14px; color:var(--text-muted); line-height:1.7; max-width:680px; }
+
+    /* ─── SYMBOLISM ─── */
+    .symbolism { background:var(--navy-mid); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .symbols-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; margin-top:3rem; }
+    .symbol-card { background:var(--navy-card); border:1px solid var(--border); padding:2rem; text-align:center; transition:border-color 0.3s; }
+    .symbol-card:hover { border-color:var(--gold); }
+    .symbol-card svg { display:block; margin:0 auto 1.2rem; }
+    .symbol-card h4 { font-family:'Cinzel',serif; font-size:14px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:0.6rem; }
+    .symbol-card p { font-size:13px; color:var(--text-muted); line-height:1.7; }
+
+    /* ─── NAV OVERRIDES ─── */
+    nav { background:rgba(18,16,14,0.97); border-bottom-color:var(--border); }
+    .nav-links a:hover { color:var(--gold); }
+    .dropdown-menu { background:var(--navy-panel); }
+    .dropdown-menu a:hover { background:rgba(178,34,34,0.1); color:var(--gold); }
+
+    /* ─── FOOTER ─── */
+    footer { background:#060402; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width:768px) {
+      .degrees-grid { grid-template-columns:1fr 1fr; }
+      .precept-grid { grid-template-columns:1fr; }
+      .symbols-grid { grid-template-columns:1fr; }
+    }
+    @media (max-width:480px) {
+      .degrees-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- CRIMSON TOP BAND -->
+<div class="crimson-band"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-emblem">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 8L36 24L24 40L12 24L24 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M24 12L32 24L24 36L16 24L24 12Z" stroke="currentColor" stroke-width="2.5"/>
+        <circle cx="24" cy="24" r="4" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="nav-title">Gran Logia<br><span>Nacional</span></div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+    <li><a href="RealArco.html">Real Arco</a></li>
+    <li><a href="Marinero.html">Marineros del Arca Real</a></li>
+    <li><a href="Masones.html">Consejo de Masones Críticos</a></li>
+    <li><a href="Preceptoria.html">Preceptoria</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-stars" id="stars"></div>
+
+  <!-- Flame decoration SVG -->
+  <svg class="hero-flames" viewBox="0 0 1440 200" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 200 Q180 80 360 160 Q540 80 720 160 Q900 80 1080 160 Q1260 80 1440 160 L1440 200 Z" fill="#8B1A1A"/>
+    <path d="M0 200 Q120 120 240 170 Q360 100 480 170 Q600 100 720 170 Q840 100 960 170 Q1080 100 1200 170 Q1320 100 1440 170 L1440 200 Z" fill="#C9A84C"/>
+  </svg>
+
+  <!-- ★ COLOCA AQUÍ TU IMAGEN — reemplaza src="" con la ruta de tu escudo ★ -->
+  <div class="hero-badge-wrap reveal">
+    <img
+      src="Imagenes/Preceptores.png"
+      alt="Escudo Preceptoría Caballeros Templarios Distrito Perú"
+      class="hero-badge-img"
+      id="escudo-img"
+      onerror="this.style.display='none';document.getElementById('escudo-placeholder').style.display='flex';"
+    />
+    <div class="hero-badge-placeholder" id="escudo-placeholder" style="display:none;">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Shield shape -->
+        <path d="M15 20 L85 20 L85 65 Q85 85 50 95 Q15 85 15 65 Z" stroke="#C9A84C" stroke-width="2" fill="rgba(38,30,24,0.8)"/>
+        <!-- Cross Pattée on shield -->
+        <path d="M38 32 L62 32 L58 46 L62 46 L50 46 L38 46 Z" fill="#B22222"/>
+        <path d="M38 76 L62 76 L58 62 L50 62 L42 62 Z" fill="#B22222"/>
+        <path d="M22 46 L22 62 L36 58 L36 50 Z" fill="#B22222"/>
+        <path d="M78 46 L78 62 L64 58 L64 50 Z" fill="#B22222"/>
+        <rect x="38" y="46" width="24" height="16" fill="#B22222"/>
+        <!-- Banner -->
+        <path d="M20 18 Q50 12 80 18" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+        <text x="50" y="16" text-anchor="middle" font-family="serif" font-size="8" fill="#C9A84C">POUR LA FOY</text>
+      </svg>
+    </div>
+  </div>
+
+  <span class="hero-subtitle reveal">Gran Preceptoría del Perú · Fundada 1872</span>
+
+  <h1 class="reveal">Preceptoría de <span>Caballeros Templarios</span></h1>
+
+  <p class="hero-tagline reveal">
+    «Pour La Foy — Por La Fe · La Caballería Cristiana en la Masonería del Perú»
+  </p>
+
+  <div class="hero-divider"></div>
+
+  <div class="hero-cta reveal">
+    <a href="#preceptorias" class="btn-primary">Nuestras Preceptorías</a>
+    <a href="#contacto" class="btn-outline">Petición de Ingreso</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     STATS BAR
+══════════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-num">1872</div>
+      <div class="stat-label">Año de Fundación</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Grados de Caballería</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">8+</div>
+      <div class="stat-label">Preceptorías Activas</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num">152</div>
+      <div class="stat-label">Años de Tradición</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ABOUT / QUÉ ES UNA PRECEPTORÍA
+══════════════════════════════════════════ -->
+<section class="about" id="sobre">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="section-label">¿Qué es una Preceptoría?</span>
+        <h2 class="section-title">La Orden del Temple<br>en la Masonería</h2>
+        <div class="gold-line"></div>
+        <p>
+          La <strong style="color:var(--cream)">Preceptoría</strong> es la asamblea masónica en la cual se confieren los grados de la <em>Orden Masónica de los Caballeros Templarios</em>, inspirada en la histórica Orden del Temple fundada en Jerusalén en el siglo XII. El término <em>Preceptoría</em> es el nombre propio de la logia en el sistema escocés; en el rito inglés se denomina <em>Encampment</em> y en el americano, <em>Commandery</em>.
+        </p>
+        <p>
+          El Caballero Templario masónico es un <strong style="color:var(--cream)">Compañero del Arco Real</strong> que abraza la enseñanza de la caballería cristiana medieval como alegoría de la lucha espiritual del iniciado: la defensa de la fe, la protección del inocente y la búsqueda incansable del Santo Grial como símbolo de la verdad suprema.
+        </p>
+        <p>
+          En el Perú, la <strong style="color:var(--cream)">Gran Preceptoría</strong> regula y supervisa las Preceptorías bajo obediencia del <em>Great Priory of Scotland</em>, preservando el ritual, la disciplina caballeresca y la fraternidad cristiana desde el siglo XIX.
+        </p>
+      </div>
+      <div class="about-pillars reveal">
+        <div class="pillar">
+          <!-- Cross Pattée SVG -->
+          <svg class="pillar-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 4 L28 4 L26 14 L28 14 L22 14 L16 14 Z" fill="#B22222" opacity="0.9"/>
+            <path d="M16 40 L28 40 L26 30 L22 30 L18 30 Z" fill="#B22222" opacity="0.9"/>
+            <path d="M4 16 L4 28 L14 26 L14 18 Z" fill="#B22222" opacity="0.9"/>
+            <path d="M40 16 L40 28 L30 26 L30 18 Z" fill="#B22222" opacity="0.9"/>
+            <rect x="16" y="16" width="12" height="12" fill="#B22222"/>
+            <rect x="17" y="17" width="10" height="10" stroke="#C9A84C" stroke-width="0.5" fill="none"/>
+          </svg>
+          <h4>Cruz Pattée</h4>
+          <p>La Cruz Templaria de color rojo sangre sobre fondo blanco, insignia de los Pobres Caballeros de Cristo del Temple de Salomón.</p>
+        </div>
+        <div class="pillar">
+          <!-- Helmet SVG -->
+          <svg class="pillar-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 28 Q10 12 22 8 Q34 12 34 28 L34 36 Q28 38 16 36 Z" stroke="#C9A84C" stroke-width="1.5" fill="rgba(74,78,90,0.2)"/>
+            <rect x="14" y="22" width="16" height="3" fill="#C9A84C" opacity="0.7"/>
+            <rect x="14" y="26" width="16" height="1.5" fill="#C9A84C" opacity="0.5"/>
+            <path d="M10 28 L34 28" stroke="#C9A84C" stroke-width="1"/>
+          </svg>
+          <h4>El Yelmo</h4>
+          <p>El casco del caballero, símbolo de la protección de la mente y del pensamiento frente a las tentaciones e ilusiones del mundo profano.</p>
+        </div>
+        <div class="pillar">
+          <!-- Sword SVG -->
+          <svg class="pillar-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="4" x2="22" y2="36" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+            <line x1="14" y1="30" x2="30" y2="30" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M20 36 Q22 42 24 36" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+            <line x1="22" y1="4" x2="26" y2="12" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
+            <line x1="22" y1="4" x2="18" y2="12" stroke="#C9A84C" stroke-width="1" opacity="0.5"/>
+          </svg>
+          <h4>La Espada</h4>
+          <p>Arma del caballero masónico y símbolo de la justicia que corta la ignorancia. Empuñada en defensa de la fe y del débil, nunca en provecho propio.</p>
+        </div>
+        <div class="pillar">
+          <!-- Grail SVG -->
+          <svg class="pillar-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 10 Q12 22 18 28 Q22 32 22 36" stroke="#C9A84C" stroke-width="1.8" fill="none"/>
+            <path d="M30 10 Q32 22 26 28 Q22 32 22 36" stroke="#C9A84C" stroke-width="1.8" fill="none"/>
+            <line x1="12" y1="10" x2="32" y2="10" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+            <line x1="16" y1="36" x2="28" y2="36" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="14" y1="39" x2="30" y2="39" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Cross on cup -->
+            <line x1="22" y1="12" x2="22" y2="20" stroke="#B22222" stroke-width="1.5"/>
+            <line x1="18" y1="16" x2="26" y2="16" stroke="#B22222" stroke-width="1.5"/>
+          </svg>
+          <h4>El Santo Grial</h4>
+          <p>Fin último del peregrinaje caballeresco masónico. El Grial representa la verdad divina que el Sir Caballero busca a lo largo de toda su vida iniciática.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GRADOS
+══════════════════════════════════════════ -->
+<section class="degrees" id="grados">
+  <div class="section-inner">
+    <span class="section-label">Sistema de Caballería Masónica</span>
+    <h2 class="section-title reveal">Los Grados de la Preceptoría</h2>
+    <div class="gold-line"></div>
+    <p class="reveal" style="color:var(--text-muted);max-width:700px;margin-bottom:0;">
+      El sistema escocés de los Caballeros Templarios confiere tres grados en la Preceptoría, culminando en el grado supremo del Caballero Templario y Caballero de Malta. El candidato debe ser previamente Compañero del Arco Real.
+    </p>
+
+    <div class="degrees-grid">
+
+      <!-- Grado I -->
+      <div class="degree-card reveal">
+        <div class="degree-roman">Primer Grado</div>
+        <svg class="degree-svg" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" stroke="#C9A84C" stroke-width="1.2" fill="rgba(38,30,24,0.7)"/>
+          <!-- Pilgrim cross + staff -->
+          <line x1="30" y1="10" x2="30" y2="48" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+          <line x1="20" y1="24" x2="40" y2="24" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="30" cy="10" r="3.5" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.1)"/>
+          <path d="M24 48 Q30 52 36 48" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+        </svg>
+        <h3>Caballero del Espado de Malta</h3>
+        <p>Primer grado de la caballería masónica. El candidato inicia su peregrinación simbólica adoptando la virtud de la humildad y la disposición al servicio.</p>
+      </div>
+
+      <!-- Grado II -->
+      <div class="degree-card reveal">
+        <div class="degree-roman">Segundo Grado</div>
+        <svg class="degree-svg" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" stroke="#C9A84C" stroke-width="1.2" fill="rgba(38,30,24,0.7)"/>
+          <!-- Eight-pointed star of Malta -->
+          <polygon points="30,8 34,22 48,22 37,31 41,45 30,37 19,45 23,31 12,22 26,22" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.08)"/>
+          <polygon points="30,14 33,22 41,22 35,27 37,35 30,31 23,35 25,27 19,22 27,22" fill="#C9A84C" opacity="0.15"/>
+          <circle cx="30" cy="30" r="5" stroke="#B22222" stroke-width="1.5" fill="rgba(178,34,34,0.1)"/>
+        </svg>
+        <h3>Caballero de Malta</h3>
+        <p>El grado de Malta enseña la defensa de la fe cristiana y la hospitalidad hacia los peregrinos y necesitados, virtud cardinal de los Caballeros de San Juan.</p>
+      </div>
+
+      <!-- Grado III -->
+      <div class="degree-card reveal" style="border-color:rgba(178,34,34,0.4);">
+        <div class="degree-roman" style="color:var(--gold);">Tercer Grado</div>
+        <svg class="degree-svg" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" stroke="#C9A84C" stroke-width="1.8" fill="rgba(38,30,24,0.7)"/>
+          <!-- Cross Pattée grande -->
+          <path d="M22 8 L38 8 L35 20 L38 20 L30 20 L22 20 Z" fill="#B22222"/>
+          <path d="M22 52 L38 52 L35 40 L30 40 L25 40 Z" fill="#B22222"/>
+          <path d="M8 22 L8 38 L20 35 L20 25 Z" fill="#B22222"/>
+          <path d="M52 22 L52 38 L40 35 L40 25 Z" fill="#B22222"/>
+          <rect x="22" y="22" width="16" height="16" fill="#B22222"/>
+          <!-- Inner gold details -->
+          <rect x="24" y="24" width="12" height="12" stroke="#C9A84C" stroke-width="0.8" fill="none"/>
+          <circle cx="30" cy="30" r="3" fill="#C9A84C" opacity="0.4"/>
+        </svg>
+        <h3>Caballero Templario</h3>
+        <p>El grado supremo de la Preceptoría. El Sir Caballero es armado caballero según el ritual medieval, recibiendo la espada, el escudo y la Cruz del Temple en nombre de la fe y la fraternidad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     HISTORIA
+══════════════════════════════════════════ -->
+<section class="historia" id="historia">
+  <div class="section-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;" class="about-grid">
+      <div>
+        <span class="section-label">Historia</span>
+        <h2 class="section-title reveal">La Orden del Temple<br>en el Perú</h2>
+        <div class="gold-line"></div>
+        <div class="timeline reveal">
+
+          <div class="timeline-item">
+            <div class="timeline-year">1118</div>
+            <h4>Fundación Histórica del Temple</h4>
+            <p>Hugo de Payens y ocho caballeros fundan la Orden de los Pobres Caballeros de Cristo del Temple de Salomón en Jerusalén, con la misión de proteger a los peregrinos en Tierra Santa.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">1307</div>
+            <h4>Disolución y Legado</h4>
+            <p>El rey Felipe IV de Francia y el papa Clemente V disuelven la Orden. La tradición masónica recoge el legado espiritual y simbólico del Temple, transmitido a través de los siglos hasta los modernos Caballeros Templarios masónicos.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">1769</div>
+            <h4>Constitución Masónica Formal</h4>
+            <p>El <em>Great Priory of Scotland</em> formaliza el gobierno masónico de los grados de caballería templaria, ordenando las Preceptorías y Encampments bajo una obediencia regular y reconocida.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">1872</div>
+            <h4>Llegada al Perú</h4>
+            <p>Se establece la primera Preceptoría bajo patente escocesa en Lima. La tradición de la caballería cristiana masónica echa raíces en el Perú, uniendo a Maestros del Arco Real en torno a los grados templarios.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">1920</div>
+            <h4>Expansión Nacional</h4>
+            <p>Preceptorías se constituyen en Arequipa y Trujillo. La Gran Preceptoría del Perú consolida su jurisdicción sobre todos los Caballeros Templarios masónicos del territorio nacional.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2024</div>
+            <h4>Continuidad y Renovación</h4>
+            <p>Más de 150 años después de su fundación, la Gran Preceptoría del Perú mantiene viva la llama de la caballería cristiana masónica, fiel a su lema: <em>Pour La Foy</em>.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="reveal" style="padding-top:4rem;">
+        <div class="pillar" style="margin-bottom:1.5rem;text-align:left;padding:2rem;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin-bottom:0.75rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 4 L22 4 L20 12 L22 12 L16 12 L10 12 Z" fill="#B22222" opacity="0.8"/>
+            <path d="M10 28 L22 28 L20 20 L16 20 L12 20 Z" fill="#B22222" opacity="0.8"/>
+            <path d="M4 10 L4 22 L12 20 L12 12 Z" fill="#B22222" opacity="0.8"/>
+            <path d="M28 10 L28 22 L20 20 L20 12 Z" fill="#B22222" opacity="0.8"/>
+            <rect x="10" y="12" width="12" height="8" fill="#B22222" opacity="0.8"/>
+          </svg>
+          <h4 style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.1em;color:var(--cream);margin-bottom:0.5rem;">GREAT PRIORY OF SCOTLAND</h4>
+          <p style="font-size:13px;color:var(--text-muted);">Con sede en Edimburgo, el Gran Priorato de Escocia es la autoridad suprema que regula las Preceptorías del rito escocés en todo el mundo. La Gran Preceptoría del Perú opera bajo su patente y obediencia.</p>
+        </div>
+
+        <div class="pillar" style="text-align:left;padding:2rem;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin-bottom:0.75rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+            <line x1="16" y1="3" x2="16" y2="29" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="8" y1="18" x2="24" y2="18" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <h4 style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.1em;color:var(--cream);margin-bottom:0.5rem;">POUR LA FOY</h4>
+          <p style="font-size:13px;color:var(--text-muted);">«Por la Fe» — lema de los Caballeros Templarios masónicos, que sintetiza la misión espiritual de la orden: defender la fe en el Gran Arquitecto y practicar las virtudes de la caballería cristiana en cada acto de la vida.</p>
+        </div>
+
+        <div class="pillar" style="text-align:left;padding:2rem;margin-top:1.5rem;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin-bottom:0.75rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+            <!-- Shield -->
+            <path d="M6 6 L26 6 L26 20 Q26 28 16 31 Q6 28 6 20 Z" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.05)"/>
+            <line x1="16" y1="10" x2="16" y2="24" stroke="#B22222" stroke-width="1.8"/>
+            <line x1="10" y1="16" x2="22" y2="16" stroke="#B22222" stroke-width="1.8"/>
+          </svg>
+          <h4 style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:0.1em;color:var(--cream);margin-bottom:0.5rem;">CABALLERO Y HERMANO</h4>
+          <p style="font-size:13px;color:var(--text-muted);">El título de Sir Caballero otorgado en la Preceptoría no es honor mundano sino llamada al servicio, a la humildad y al sacrificio en nombre de la fraternidad y la fe.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PRECEPTORÍAS DEL PERÚ
+══════════════════════════════════════════ -->
+<section class="logias" id="preceptorias" style="background:var(--navy-mid);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:1rem;">
+      <div>
+        <span class="section-label">Obediencia del Perú</span>
+        <h2 class="section-title reveal">Preceptorías Constituidas</h2>
+        <div class="gold-line"></div>
+      </div>
+      <a href="#contacto" class="btn-outline reveal">Petición de Constitución</a>
+    </div>
+
+    <div class="precept-grid">
+
+      <div class="precept-card reveal">
+        <div class="precept-num">Preceptoría N.° 1</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.5" fill="rgba(38,30,24,0.7)"/>
+          <path d="M18 6 L34 6 L31 16 L34 16 L26 16 L18 16 Z" fill="#B22222"/>
+          <path d="M18 46 L34 46 L31 36 L26 36 L21 36 Z" fill="#B22222"/>
+          <path d="M6 18 L6 34 L16 31 L16 21 Z" fill="#B22222"/>
+          <path d="M46 18 L46 34 L36 31 L36 21 Z" fill="#B22222"/>
+          <rect x="18" y="18" width="16" height="16" fill="#B22222"/>
+          <rect x="20" y="20" width="12" height="12" stroke="#C9A84C" stroke-width="0.5" fill="none"/>
+        </svg>
+        <h3>Preceptoría Hugues de Payens</h3>
+        <div class="precept-ciudad">Lima — Sede Central</div>
+        <p>Preceptoría fundadora que lleva el nombre del fundador histórico del Temple. Sede de la Gran Preceptoría del Perú y custodio del ritual templario escocés.</p>
+      </div>
+
+      <div class="precept-card reveal">
+        <div class="precept-num">Preceptoría N.° 2</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="26,3 49,14.5 49,37.5 26,49 3,37.5 3,14.5" stroke="#C9A84C" stroke-width="1.5" fill="rgba(38,30,24,0.7)"/>
+          <!-- Eight-pointed star -->
+          <polygon points="26,10 29,20 39,20 31,26 34,36 26,31 18,36 21,26 13,20 23,20" stroke="#C9A84C" stroke-width="1" fill="rgba(178,34,34,0.15)"/>
+          <circle cx="26" cy="26" r="5" fill="#B22222" opacity="0.5"/>
+        </svg>
+        <h3>Preceptoría San Juan de Acre</h3>
+        <div class="precept-ciudad">Lima</div>
+        <p>En honor a la última fortaleza cruzada, esta Preceptoría destaca por la rigurosidad de sus trabajos rituales y por la formación filosófica de sus Sir Caballeros.</p>
+      </div>
+
+      <div class="precept-card reveal">
+        <div class="precept-num">Preceptoría N.° 3</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="#B22222" stroke-width="1.5" fill="rgba(38,30,24,0.7)"/>
+          <!-- Shield on circle -->
+          <path d="M14 14 L38 14 L38 30 Q38 42 26 46 Q14 42 14 30 Z" stroke="#C9A84C" stroke-width="1.2" fill="rgba(178,34,34,0.1)"/>
+          <line x1="26" y1="18" x2="26" y2="38" stroke="#B22222" stroke-width="2"/>
+          <line x1="18" y1="26" x2="34" y2="26" stroke="#B22222" stroke-width="2"/>
+        </svg>
+        <h3>Preceptoría Godfrey de Bouillon</h3>
+        <div class="precept-ciudad">Arequipa</div>
+        <p>Lleva el nombre del caudillo de la Primera Cruzada. Custodio del grado templario en el sur del Perú, con especial dedicación a las virtudes de la caballería cristiana.</p>
+      </div>
+
+      <div class="precept-card reveal">
+        <div class="precept-num">Preceptoría N.° 4</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="26,3 49,14.5 49,37.5 26,49 3,37.5 3,14.5" stroke="#C9A84C" stroke-width="1.5" fill="rgba(38,30,24,0.7)"/>
+          <line x1="26" y1="10" x2="26" y2="42" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="16" y1="26" x2="36" y2="26" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+          <!-- Sword point -->
+          <path d="M23 42 Q26 46 29 42" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+          <!-- Hilt -->
+          <rect x="22" y="28" width="8" height="3" rx="1" fill="#C9A84C" opacity="0.4"/>
+        </svg>
+        <h3>Preceptoría Bernardo de Claraval</h3>
+        <div class="precept-ciudad">Trujillo</div>
+        <p>En honor al mentor espiritual del Temple, esta Preceptoría pone énfasis en el desarrollo moral y espiritual del Sir Caballero sobre toda consideración mundana.</p>
+      </div>
+
+      <div class="precept-card reveal">
+        <div class="precept-num">Preceptoría N.° 5</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="#C9A84C" stroke-width="1.5" fill="rgba(38,30,24,0.7)"/>
+          <!-- Grail -->
+          <path d="M16 14 Q14 24 18 30 Q22 36 26 40" stroke="#C9A84C" stroke-width="1.8" fill="none"/>
+          <path d="M36 14 Q38 24 34 30 Q30 36 26 40" stroke="#C9A84C" stroke-width="1.8" fill="none"/>
+          <line x1="14" y1="14" x2="38" y2="14" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+          <line x1="20" y1="40" x2="32" y2="40" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Cross on grail -->
+          <line x1="26" y1="16" x2="26" y2="22" stroke="#B22222" stroke-width="1.5"/>
+          <line x1="23" y1="19" x2="29" y2="19" stroke="#B22222" stroke-width="1.5"/>
+        </svg>
+        <h3>Preceptoría del Santo Grial</h3>
+        <div class="precept-ciudad">Callao</div>
+        <p>Preceptoría cuyo nombre recuerda el fin supremo del peregrinaje caballeresco. Trabaja con especial devoción los aspectos espirituales y místicos de los grados templarios.</p>
+      </div>
+
+      <div class="precept-card reveal" style="border-style:dashed;opacity:0.7;">
+        <div class="precept-num">Constitución Futura</div>
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="margin:0 auto 1.2rem;display:block;" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24" stroke="rgba(180,140,60,0.4)" stroke-width="1.5" stroke-dasharray="4 3" fill="rgba(38,30,24,0.3)"/>
+          <line x1="26" y1="14" x2="26" y2="38" stroke="rgba(178,34,34,0.5)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="14" y1="26" x2="38" y2="26" stroke="rgba(178,34,34,0.5)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h3>Nueva Preceptoría</h3>
+        <div class="precept-ciudad" style="color:var(--text-muted);">En Proceso</div>
+        <p>¿Desea constituir una nueva Preceptoría? La Gran Preceptoría del Perú evalúa peticiones de Sir Caballeros regularmente reunidos bajo su obediencia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PRINCIPLES
+══════════════════════════════════════════ -->
+<section class="principles">
+  <div class="section-inner">
+    <span class="section-label">Filosofía de la Orden</span>
+    <h2 class="section-title reveal">Las Virtudes del Sir Caballero</h2>
+    <div class="gold-line" style="margin:0 auto 2.5rem;"></div>
+
+    <div class="principles-quote reveal">
+      <blockquote>
+        «No a nosotros, Señor, no a nosotros, sino a tu nombre da la gloria, por tu misericordia y por tu verdad.»
+      </blockquote>
+      <cite>— Salmo 115:1 · Divisa de la Orden del Temple</cite>
+    </div>
+
+    <div class="principles-trio reveal">
+      <div class="principle-item" data-roman="I">
+        <h3>Fe</h3>
+        <p>La fe en el Gran Arquitecto del Universo es el escudo del Sir Caballero. Toda su obra caballeresca tiene como fundamento la confianza inquebrantable en la providencia divina que guía sus pasos.</p>
+      </div>
+      <div class="principle-item" data-roman="II">
+        <h3>Esperanza</h3>
+        <p>Como los cruzados marcharon hacia Tierra Santa impulsados por la esperanza de la redención, el Caballero Templario masónico avanza en la vida sostenido por la certeza de que la virtud triunfa sobre la oscuridad.</p>
+      </div>
+      <div class="principle-item" data-roman="III">
+        <h3>Caridad</h3>
+        <p>La caridad es la virtud suprema de la caballería. El Sir Caballero protege al débil, socorre al necesitado y extiende la mano fraterna a todo hombre sin distinción de origen o condición.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SIMBOLISMO
+══════════════════════════════════════════ -->
+<section class="symbolism" id="simbolismo">
+  <div class="section-inner">
+    <span class="section-label">Simbología Sagrada</span>
+    <h2 class="section-title reveal">Símbolos de la Preceptoría</h2>
+    <div class="gold-line"></div>
+
+    <div class="symbols-grid">
+
+      <div class="symbol-card reveal">
+        <!-- Cross Pattée grande -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 6 L44 6 L41 22 L44 22 L36 22 L28 22 Z" fill="#B22222"/>
+          <path d="M28 66 L44 66 L41 50 L36 50 L31 50 Z" fill="#B22222"/>
+          <path d="M6 28 L6 44 L22 41 L22 31 Z" fill="#B22222"/>
+          <path d="M66 28 L66 44 L50 41 L50 31 Z" fill="#B22222"/>
+          <rect x="28" y="28" width="16" height="16" fill="#B22222"/>
+          <rect x="30" y="30" width="12" height="12" stroke="#C9A84C" stroke-width="0.8" fill="none"/>
+          <circle cx="36" cy="36" r="3.5" fill="#C9A84C" opacity="0.3"/>
+        </svg>
+        <h4>Cruz Pattée</h4>
+        <p>La Cruz del Temple en rojo sangre sobre campo blanco, símbolo del martirio y de la disposición del caballero a dar su vida en defensa de la fe y de sus hermanos.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <!-- Helmet -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 48 Q16 26 36 16 Q56 26 54 48 L52 58 Q36 62 20 58 Z" stroke="#C9A84C" stroke-width="2" fill="rgba(74,78,90,0.15)"/>
+          <!-- Visor slits -->
+          <rect x="24" y="36" width="24" height="4" rx="2" fill="#C9A84C" opacity="0.5"/>
+          <rect x="24" y="42" width="24" height="2.5" rx="1" fill="#C9A84C" opacity="0.4"/>
+          <rect x="24" y="46" width="24" height="2" rx="1" fill="#C9A84C" opacity="0.3"/>
+          <!-- Crest base -->
+          <line x1="26" y1="18" x2="46" y2="18" stroke="#C9A84C" stroke-width="1.5"/>
+          <!-- Plume suggestion -->
+          <path d="M36 6 Q32 10 30 16 Q36 12 42 16 Q40 10 36 6" stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.08)"/>
+        </svg>
+        <h4>El Yelmo de Combate</h4>
+        <p>El yelmo del caballero medieval, símbolo de la protección espiritual de la mente. El Sir Caballero viste la armadura completa de las virtudes como escudo frente al mal.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <!-- Sword large -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="36" y1="6" x2="36" y2="54" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+          <!-- Crossguard -->
+          <line x1="22" y1="46" x2="50" y2="46" stroke="#C9A84C" stroke-width="3.5" stroke-linecap="round"/>
+          <!-- Pommel -->
+          <circle cx="36" cy="58" r="5" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.15)"/>
+          <!-- Blade edge detail -->
+          <line x1="36" y1="6" x2="40" y2="18" stroke="#C9A84C" stroke-width="0.8" opacity="0.4"/>
+          <line x1="36" y1="6" x2="32" y2="18" stroke="#C9A84C" stroke-width="0.8" opacity="0.4"/>
+          <!-- Red cross on blade -->
+          <line x1="36" y1="20" x2="36" y2="32" stroke="#B22222" stroke-width="2"/>
+          <line x1="30" y1="26" x2="42" y2="26" stroke="#B22222" stroke-width="2"/>
+        </svg>
+        <h4>La Espada</h4>
+        <p>Arma y símbolo de justicia. La espada del Sir Caballero se alza en defensa de la verdad, la fe y el oprimido. En la Preceptoría se usa en las ceremonias de investidura del nuevo caballero.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <!-- Shield -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12 L60 12 L60 44 Q60 62 36 70 Q12 62 12 44 Z" stroke="#C9A84C" stroke-width="2" fill="rgba(38,30,24,0.6)"/>
+          <!-- Cross on shield -->
+          <line x1="36" y1="18" x2="36" y2="58" stroke="#B22222" stroke-width="4"/>
+          <line x1="18" y1="36" x2="54" y2="36" stroke="#B22222" stroke-width="4"/>
+          <!-- Gold border inner -->
+          <path d="M16 16 L56 16 L56 44 Q56 60 36 67 Q16 60 16 44 Z" stroke="#C9A84C" stroke-width="0.5" fill="none" opacity="0.4"/>
+        </svg>
+        <h4>El Escudo del Temple</h4>
+        <p>Cruz roja sobre campo blanco: los colores del martirio y la pureza. El escudo del caballero masónico es la fe intacta y la conciencia limpia, defensa invencible contra toda corrupción.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <!-- Mantle / two knights on one horse -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Seal of two knights on horse (simplified) -->
+          <ellipse cx="36" cy="44" rx="22" ry="10" stroke="#C9A84C" stroke-width="1.2" fill="rgba(38,30,24,0.5)"/>
+          <!-- Horse body -->
+          <path d="M16 44 Q20 32 30 30 Q36 28 42 30 Q52 32 56 44" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+          <!-- Riders silhouette -->
+          <circle cx="30" cy="25" r="4" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,0.1)"/>
+          <circle cx="42" cy="25" r="4" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,0.1)"/>
+          <rect x="28" y="28" width="16" height="4" rx="1" fill="#C9A84C" opacity="0.2"/>
+          <!-- Cross -->
+          <line x1="36" y1="54" x2="36" y2="62" stroke="#B22222" stroke-width="1.5"/>
+          <line x1="32" y1="58" x2="40" y2="58" stroke="#B22222" stroke-width="1.5"/>
+        </svg>
+        <h4>El Sello del Temple</h4>
+        <p>Dos caballeros a caballo: símbolo de la pobreza voluntaria de la Orden original y de la fraternidad que une a dos hermanos bajo el mismo ideal caballeresco.</p>
+      </div>
+
+      <div class="symbol-card reveal">
+        <!-- Grail / Chalice -->
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22 14 Q18 32 24 44 Q30 54 36 58" stroke="#C9A84C" stroke-width="2.5" fill="none"/>
+          <path d="M50 14 Q54 32 48 44 Q42 54 36 58" stroke="#C9A84C" stroke-width="2.5" fill="none"/>
+          <line x1="18" y1="14" x2="54" y2="14" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="28" y1="58" x2="44" y2="58" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/>
+          <line x1="24" y1="63" x2="48" y2="63" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+          <!-- Radiance from grail -->
+          <line x1="36" y1="6" x2="36" y2="12" stroke="#C9A84C" stroke-width="1.5" opacity="0.4"/>
+          <line x1="28" y1="8" x2="30" y2="13" stroke="#C9A84C" stroke-width="1" opacity="0.3"/>
+          <line x1="44" y1="8" x2="42" y2="13" stroke="#C9A84C" stroke-width="1" opacity="0.3"/>
+          <!-- Cross on cup -->
+          <line x1="36" y1="18" x2="36" y2="30" stroke="#B22222" stroke-width="2"/>
+          <line x1="30" y1="24" x2="42" y2="24" stroke="#B22222" stroke-width="2"/>
+        </svg>
+        <h4>El Santo Grial</h4>
+        <p>Cima del peregrinaje templario. El Grial como símbolo de la verdad divina plena, hacia la cual todo Sir Caballero orienta su vida, sus estudios y sus trabajos en la Preceptoría.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CONTACTO
+══════════════════════════════════════════ -->
+<section class="logias" id="contacto">
+  <div class="section-inner">
+    <div class="logias-intro">
+      <div>
+        <span class="section-label">Petición de Ingreso</span>
+        <h2 class="section-title reveal">Únase a la Orden del Temple</h2>
+        <div class="gold-line"></div>
+      </div>
+    </div>
+
+    <div style="max-width:700px;margin:0 auto;" class="reveal">
+      <div class="modal-roles" style="margin-bottom:2.5rem;">
+        <div class="role-card">
+          <svg class="role-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="18" r="16" stroke="#C9A84C" stroke-width="1.2" fill="none"/>
+            <path d="M10 12 L26 12 L24 20 L26 20 L18 20 L10 20 Z" fill="#B22222" opacity="0.7"/>
+            <path d="M10 24 L26 24 L24 20 L18 20 L12 20 Z" fill="#B22222" opacity="0.5"/>
+          </svg>
+          <h4>Compañero del Arco Real</h4>
+          <p>Para ingresar a la Preceptoría es indispensable ser Compañero del Real Arco de Escocia en regla, bajo obediencia reconocida por el Gran Priorato de Escocia.</p>
+        </div>
+        <div class="role-card">
+          <svg class="role-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 8 L28 8 L28 22 Q28 30 18 34 Q8 30 8 22 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+            <line x1="18" y1="12" x2="18" y2="26" stroke="#B22222" stroke-width="2"/>
+            <line x1="12" y1="18" x2="24" y2="18" stroke="#B22222" stroke-width="2"/>
+          </svg>
+          <h4>Nueva Preceptoría</h4>
+          <p>Grupos de Sir Caballeros regularmente constituidos pueden solicitar patente para fundar una nueva Preceptoría bajo la Gran Preceptoría del Perú.</p>
+        </div>
+      </div>
+
+      <div style="background:var(--navy-card);border:1px solid var(--border);padding:2.5rem;">
+        <div class="form-title">Formulario de Petición</div>
+        <div class="form-grid" id="afiliacion-form">
+          <div class="form-group">
+            <label>Nombre Completo *</label>
+            <input type="text" placeholder="Su nombre completo" />
+          </div>
+          <div class="form-group">
+            <label>Apellidos *</label>
+            <input type="text" placeholder="Sus apellidos" />
+          </div>
+          <div class="form-group">
+            <label>Correo Electrónico *</label>
+            <input type="email" placeholder="correo@ejemplo.com" />
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="+51 999 000 000" />
+          </div>
+          <div class="form-group">
+            <label>Capítulo del Arco Real *</label>
+            <input type="text" placeholder="Nombre y número de su Capítulo" />
+          </div>
+          <div class="form-group">
+            <label>Ciudad *</label>
+            <select>
+              <option value="">Seleccione ciudad</option>
+              <option>Lima</option>
+              <option>Arequipa</option>
+              <option>Trujillo</option>
+              <option>Callao</option>
+              <option>Cusco</option>
+              <option>Piura</option>
+              <option>Otra</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Años como Compañero del Arco Real</label>
+            <input type="number" min="1" placeholder="Ej: 4" />
+          </div>
+          <div class="form-group full">
+            <label>Mensaje o Consulta</label>
+            <textarea placeholder="Escriba su mensaje o consulta a la Gran Preceptoría…"></textarea>
+          </div>
+        </div>
+        <button class="form-submit" onclick="handleSubmit()">Enviar Petición a la Gran Preceptoría</button>
+
+        <div class="form-success" id="form-success">
+          <svg class="success-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="22" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.08)"/>
+            <path d="M14 24 L21 31 L34 17" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <h3>Petición Recibida</h3>
+          <p>Su solicitud ha sido transmitida al Gran Canciller de la Gran Preceptoría del Perú. Será contactado a la brevedad. <em>Pour La Foy.</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRIMSON BOTTOM BAND -->
+<div class="crimson-band"></div>
+
+<!-- FOOTER -->
+<footer id="contacto">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom: 1rem;">
+          <div class="nav-emblem">
+            <svg width="42" height="42" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 8L36 24L24 40L12 24L24 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M24 12L32 24L24 36L16 24L24 12Z" stroke="currentColor" stroke-width="2.5"/>
+              <circle cx="24" cy="24" r="4" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="nav-title">Gran Logia<br>Nacional</div>
+        </div>
+        <p>Custodios de la tradición, promotores del progreso y defensores de los valores que hacen grande a una nación.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Institución</h5>
+        <ul>
+          <li><a href="nosotros.html">Quiénes Somos</a></li>
+          <li><a href="#">Historia</a></li>
+          <li><a href="#">Autoridades</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Vínculos</h5>
+        <ul>
+          <li><a href="#logias">Logias</a></li>
+          <li><a href="#">Eventos</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Gran Logia Nacional del Perú · Todos los derechos reservados</p>
+      <span class="footer-masonic">A∴L∴G∴D∴G∴A∴D∴U∴</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════ -->
+<script>
+  /* ─── STARS ─── */
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      --dur: ${2.5 + Math.random() * 3}s;
+      --delay: ${Math.random() * 4}s;
+      opacity: 0.15;
+    `;
+    starsContainer.appendChild(star);
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* ─── FORM ─── */
+  function handleSubmit() {
+    const form = document.getElementById('afiliacion-form');
+    const success = document.getElementById('form-success');
+    form.style.display = 'none';
+    document.querySelector('.form-title').style.display = 'none';
+    document.querySelector('.form-submit').style.display = 'none';
+    success.classList.add('active');
+  }
+
+  /* ─── SMOOTH NAV ─── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>
