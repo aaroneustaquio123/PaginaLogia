@@ -197,6 +197,9 @@ nav {
   position: relative;
   animation: pulse-ring 4s ease-in-out infinite;
 }
+.timeline-item p + p {
+  margin-top: 1.2em; /* ajusta el valor a tu gusto */
+}
 
 .hero-emblem::before {
   content: '';
