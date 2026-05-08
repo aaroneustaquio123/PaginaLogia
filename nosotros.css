@@ -723,3 +723,19 @@ footer {
   .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
   .footer-bottom { flex-direction: column; text-align: center; }
 }
+.identity-card-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.3s, transform 0.2s;
+}
+
+.identity-card-link:hover {
+  border-color: var(--gold);
+  transform: translateY(-3px);
+}
+.nav-links a.active {
+  color: var(--gold);
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 4px;
+}

@@ -230,6 +230,12 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+ const links = document.querySelectorAll('.nav-links a');
+  links.forEach(link => {
+    if (link.href === window.location.href) {
+      link.classList.add('active');
+    }
+  });
 </script>
 </body>
 </html>

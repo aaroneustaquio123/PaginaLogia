@@ -15,12 +15,9 @@
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">
-    <div class="nav-emblem">
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M24 8L36 24L24 40L12 24L24 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M24 12L32 24L24 36L16 24L24 12Z" stroke="currentColor" stroke-width="2.5"/>
-        <circle cx="24" cy="24" r="4" fill="currentColor"/>
-      </svg>
+    <div class="nav-emblem" style="border: none;">
+      <img src="Imagenes/LogoLogia.png" alt="Logo Rito de York Perú" 
+           style="width:100%; height:100%; object-fit:contain;" />
     </div>
     <div class="nav-title">Rito de York <br><span>Perú</span></div>
   </a>
@@ -40,49 +37,18 @@
 <section class="hero" id="inicio">
   <div class="hero-bg"></div>
   <div class="hero-pattern"></div>
-  <div class="hero-stars" id="stars"></div>
-
-  <p class="hero-subtitle">Fundada · Anno Lucis 5812</p>
+  <div class="hero-stars" id="stars"></div>  
   
   <div class="hero-emblem">
-    <svg width="130" height="130" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M24 8L36 24L24 40L12 24L24 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M24 12L32 24L24 36L16 24L24 12Z" stroke="currentColor" stroke-width="2.5"/>
-      <circle cx="24" cy="24" r="4" fill="currentColor"/>
-    </svg>
-  </div>
+  <img src="Imagenes/LogoLogia.png" alt="Logo Rito de York Perú" 
+       style="width:117px; height:117px; object-fit:contain;" />
+</div>
 
-  <h1>Gran Logia Nacional<br>del Perú</h1>
+  <h1>Rito de York<br>Perú</h1>
   <p class="hero-tagline">Libertad • Igualdad • Fraternidad</p>
   <div class="hero-divider"></div>
   
-  <div class="hero-cta">
-    <a href="nosotros.html" class="btn-primary">Conócenos</a>
-    <a href="#logias" class="btn-outline">Nuestras Logias</a>
-  </div>
 </section>
-
-<!-- STATS BAR -->
-<div class="stats-bar reveal">
-  <div class="stats-inner">
-    <div class="stat-item">
-      <div class="stat-num">1812</div>
-      <div class="stat-label">Año de Fundación</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">48</div>
-      <div class="stat-label">Logias Activas</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">3,200+</div>
-      <div class="stat-label">Hermanos Iniciados</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">24</div>
-      <div class="stat-label">Departamentos</div>
-    </div>
-  </div>
-</div>
 
 <!-- ABOUT INTRO -->
 <section class="about" id="sobre-nosotros">
@@ -538,13 +504,10 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="nav-logo" style="margin-bottom: 1rem;">
-          <div class="nav-emblem">
-            <svg width="42" height="42" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M24 8L36 24L24 40L12 24L24 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
-              <path d="M24 12L32 24L24 36L16 24L24 12Z" stroke="currentColor" stroke-width="2.5"/>
-              <circle cx="24" cy="24" r="4" fill="currentColor"/>
-            </svg>
-          </div>
+          <div class="nav-emblem" style="border: none;">
+              <img src="Imagenes/LogoLogia.png" alt="Logo Rito de York Perú" 
+                     style="width:100%; height:100%; object-fit:contain;" />
+                    </div>
           <div class="nav-title">Gran Logia<br>Nacional</div>
         </div>
         <p>Custodios de la tradición, promotores del progreso y defensores de los valores que hacen grande a una nación.</p>
@@ -594,6 +557,12 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.08 });
 
 document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+ const links = document.querySelectorAll('.nav-links a');
+  links.forEach(link => {
+    if (link.href === window.location.href) {
+      link.classList.add('active');
+    }
+  });
 </script>
 </body>
 </html>
