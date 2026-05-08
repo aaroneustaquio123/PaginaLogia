@@ -189,10 +189,10 @@ nav {
   width: 128px; height: 128px;
   border: 2px solid var(--gold);
   border-radius: 50%;
+  overflow: hidden;        /* ← agrega esto */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 62px;
   margin-bottom: 2.5rem;
   position: relative;
   animation: pulse-ring 4s ease-in-out infinite;
